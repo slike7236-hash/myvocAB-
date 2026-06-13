@@ -24,23 +24,28 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
+            overflow: hidden;
         }
         
-        /* 🔥 AYLALANIB TURUVCHI KATTA LOGOTIP */
-        .logo-container {
-            perspective: 1000px; /* 3D effekt uchun */
+        /* 🏃‍♂️ O'NGDAN CHAPGA YUGURUVCHI KATTA MATN (MARQUEE EFFECT) */
+        .marquee-container {
+            flex-grow: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            margin-right: 20px;
         }
-        .logo { 
-            font-size: 32px; /* Kattalashtirildi */
-            font-weight: bold; 
+        .logo-marquee { 
+            font-size: 38px; /* Ancha kattalashtirildi */
+            font-weight: 900; 
             display: inline-block;
             color: #fff;
-            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
-            animation: rotateLogo 6s linear infinite; /* 6 soniyada bir aylanadi */
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+            letter-spacing: 2px;
+            animation: runText 12s linear infinite; /* Harakatlanish tezligi */
         }
-        @keyframes rotateLogo {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        @keyframes runText {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
         
         /* Til tanlash tugmasi */
@@ -48,7 +53,7 @@
             background: #2c3e50;
             color: white;
             border: 1px solid #444;
-            padding: 5px 10px;
+            padding: 8px 12px;
             font-size: 14px;
             border-radius: 4px;
             cursor: pointer;
@@ -57,28 +62,29 @@
 
         /* 🎪 REKLAMA BANNERI (SLIDER / CAROUSEL) */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
             color: white;
             text-align: center;
-            padding: 70px 20px;
-            position: relative;
-            overflow: hidden;
-            height: 120px;
+            padding: 40px 20px;
+            height: 140px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            border-bottom: 4px solid var(--accent-color);
         }
         .slide {
             display: none;
-            animation: fadeEffect 1s;
+            width: 100%;
+            max-width: 800px;
+            animation: fadeEffect 0.8s ease-in-out;
         }
-        .slide h1 { font-size: 42px; margin: 0 0 10px 0; font-weight: bold; }
-        .slide p { font-size: 18px; color: #ddd; margin: 0; }
+        .slide h1 { font-size: 36px; margin: 0 0 12px 0; font-weight: bold; }
+        .slide p { font-size: 18px; color: #f1c40f; margin: 0; font-weight: 500; }
         
         @keyframes fadeEffect {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         /* Kitoblar bo'limi */
@@ -188,8 +194,8 @@
 <body>
 
     <div class="navbar">
-        <div class="logo-container">
-            <div class="logo">My Vocabulary</div>
+        <div class="marquee-container">
+            <div class="logo-marquee">My Vocabulary</div>
         </div>
         <div>
             <select class="lang-select" onchange="changeLanguage(this.value)">
@@ -201,16 +207,16 @@
 
     <div class="hero">
         <div class="slide">
-            <h1 data-key="hero-title-1">Siz izlagan eng sara kitoblar</h1>
-            <p data-key="hero-desc-1">Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!</p>
+            <h1 data-key="hero-title-1">⚡ CLICK orqali oson va xavfsiz to'lov!</h1>
+            <p data-key="hero-desc-1">Kutubxonamizdan istalgan kitobni sotib oling va 10% keshbekka ega bo'ling.</p>
         </div>
         <div class="slide">
-            <h1 data-key="hero-title-2">⚡ CLICK orqali oson to'lov!</h1>
-            <p data-key="hero-desc-2">Uydan chiqmasdan xaridlarni 10% keshbek bilan amalga oshiring.</p>
+            <h1 data-key="hero-title-2">💸 PAYME bilan 0% komissiya!</h1>
+            <p data-key="hero-desc-2">Aksiya doirasida darsliklarimizni ortiqcha foizlarsiz, bir zumda faollashtiring.</p>
         </div>
         <div class="slide">
-            <h1 data-key="hero-title-3">🎉 Yangi o'yinlar qo'shildi!</h1>
-            <p data-key="hero-desc-3">Lug'at boyligingizni oshiring va do'stlaringiz bilan musobaqalashing.</p>
+            <h1 data-key="hero-title-3">🎉 Intellektual o'yinlar olamiga xush kelibsiz!</h1>
+            <p data-key="hero-desc-3">Anagram, Match Up va Spin o'yinlarini o'ynang, bilimingizni eng yuqori darajaga olib chiqing.</p>
         </div>
     </div>
 
@@ -256,12 +262,12 @@
         // TILLAR LUG'ATI
         const translations = {
             uz: {
-                "hero-title-1": "Siz izlagan eng sara kitoblar",
-                "hero-desc-1": "Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!",
-                "hero-title-2": "⚡ CLICK orqali oson to'lov!",
-                "hero-desc-2": "Uydan chiqmasdan xaridlarni 10% keshbek bilan amalga oshiring.",
-                "hero-title-3": "🎉 Yangi o'yinlar qo'shildi!",
-                "hero-desc-3": "Lug'at boyligingizni oshiring va do'stlaringiz bilan musobaqalashing.",
+                "hero-title-1": "⚡ CLICK orqali oson va xavfsiz to'lov!",
+                "hero-desc-1": "Kutubxonamizdan istalgan kitobni sotib oling va 10% keshbekka ega bo'ling.",
+                "hero-title-2": "💸 PAYME bilan 0% komissiya!",
+                "hero-desc-2": "Aksiya doirasida darsliklarimizni ortiqcha foizlarsiz, bir zumda faollashtiring.",
+                "hero-title-3": "🎉 Intellektual o'yinlar olamiga xush kelibsiz!",
+                "hero-desc-3": "Anagram, Match Up va Spin o'yinlarini o'ynang, bilimingizni eng yuqori darajaga olib chiqing.",
                 "section-title": "— Kitoblar Ro'yxati —",
                 "price-1": "💰 45,000 so'm",
                 "price-2": "💰 38,000 so'm",
@@ -271,12 +277,12 @@
                 "footer-text": "© 2026 KitobUz onlayn do'koni. Barcha huquqlar himoyalangan."
             },
             en: {
-                "hero-title-1": "The Best Books You Are Looking For",
-                "hero-desc-1": "A good book is a light for the soul. Choose the best one for yourself!",
-                "hero-title-2": "⚡ Easy Payment via CLICK!",
-                "hero-desc-2": "Make your purchases from home and get 10% cashback bonuses.",
-                "hero-title-3": "🎉 New Games Added!",
-                "hero-desc-3": "Improve your vocabulary and compete with your friends online.",
+                "hero-title-1": "⚡ Easy & Secure Payment via CLICK!",
+                "hero-desc-1": "Buy any book from our library and get a 10% cashback bonus instantly.",
+                "hero-title-2": "💸 0% Commission with PAYME!",
+                "hero-desc-2": "Activate your premium textbooks during the promotion without extra fees.",
+                "hero-title-3": "🎉 Welcome to the World of Educational Games!",
+                "hero-desc-3": "Play Anagram, Match Up, and Spin to skyrocket your vocabulary level.",
                 "section-title": "— BOOKS LIST —",
                 "price-1": "💰 45,000 UZS",
                 "price-2": "💰 38,000 UZS",
@@ -309,8 +315,8 @@
                 slides[i].style.display = "none";  
             }
             slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}    
-            slides[slideIndex-1].style.style.display = "block";  
+            if (slideIndex > slides.length) { slideIndex = 1 }    
+            slides[slideIndex-1].style.display = "block";  
             setTimeout(showSlides, 4000); // Har 4 soniyada reklama almashadi
         }
 
