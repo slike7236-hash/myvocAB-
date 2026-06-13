@@ -84,7 +84,7 @@
         .menu-item i { width: 18px; color: var(--accent-color); text-align: center; }
         .sub-menu { padding-left: 15px; }
         .sub-menu .menu-item { font-size: 13px; padding: 8px 20px; color: #555; }
-        .menu-sep { hieght: 1px; border-top: 1px solid #edf0f2; margin: 10px 0; }
+        .menu-sep { height: 1px; border-top: 1px solid #edf0f2; margin: 10px 0; }
 
         /* REKLAMA BANNERI */
         .hero-wrapper {
@@ -260,21 +260,21 @@
                 <img src="ess1.jpg" class="book-img" alt="Solution 1">
                 <div class="book-title">Solution Elementary Book</div>
                 <div class="book-price">💰 30,000 so'm</div>
-                <button class="book-btn" onclick="openBookModal('Solution Elementary Book', '#')">Sotib olish 🛒</button>
+                <button class="book-btn" id="btn-sol-1">Sotib olish 🛒</button>
             </div>
 
             <div class="book-card hidden-book" data-type="read" id="card-read1">
                 <img src="ess2.jpg" class="book-img" alt="Read 1">
                 <div class="book-title">Read & Understand Vol 1</div>
                 <div class="book-price">💰 20,000 so'm</div>
-                <button class="book-btn" onclick="openBookModal('Read & Understand Vol 1', '#')">Sotib olish 🛒</button>
+                <button class="book-btn" id="btn-readv-1">Sotib olish 🛒</button>
             </div>
 
             <div class="book-card hidden-book" data-type="ielts" id="card-ielts1">
                 <img src="ess3.jpg" class="book-img" alt="IELTS 1">
                 <div class="book-title">IELTS Vocabulary Master</div>
                 <div class="book-price">💰 35,000 so'm</div>
-                <button class="book-btn" onclick="openBookModal('IELTS Vocabulary Master', '#')">Sotib olish 🛒</button>
+                <button class="book-btn" id="btn-ielts-1">Sotib olish 🛒</button>
             </div>
 
         </div>
@@ -313,10 +313,7 @@
         // =============================================================
         // 📋 PREMIUM FOYDALANUVCHILAR RO'YXATI
         // =============================================================
-        const premiumUsers = {
-            // ID raqamlar shu yerda tekshiriladi
-            // 1992257692: ["kitob1"] 
-        };
+        const premiumUsers = {};
 
         let currentLang = 'uz';
         let visibleCards = [];
@@ -362,10 +359,9 @@
             
             cards.forEach(card => {
                 const type = card.getAttribute('data-type');
-                card.classList.add('hidden-book'); // Avval hammasini yashirish
+                card.classList.add('hidden-book'); 
                 
                 if (category === 'premium') {
-                    // Faqat foydalanuvchi sotib olgan kitoblarni chiqarish
                     const isOwned = booksData.some(b => b.id && premiumUsers[userId]?.includes(b.code) && card.querySelector(`[id$="-${b.id}"]`));
                     if (isOwned) card.classList.remove('hidden-book');
                 } else if (type === category) {
@@ -406,6 +402,15 @@
                     btn.innerText = currentLang === 'uz' ? "Sotib olish 🛒" : "Buy 🛒";
                 }
             });
+
+            // Namuna boshqa kitob tugmalari funksiyasini ulash
+            const bSol = document.getElementById("btn-sol-1");
+            if(bSol) bSol.onclick = function() { openBookModal("Solution Elementary Book", "#"); };
+            const bRead = document.getElementById("btn-readv-1");
+            if(bRead) bRead.onclick = function() { openBookModal("Read & Understand Vol 1", "#"); };
+            const bIelts = document.getElementById("btn-ielts-1");
+            if(bIelts) bIelts.onclick = function() { openBookModal("IELTS Vocabulary Master", "#"); };
+
             updateCarouselView();
         }
 
@@ -413,8 +418,8 @@
         function openBookModal(bookName, link) {
             document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Sotib olish" : "Purchase";
             document.getElementById("modalDesc").innerText = currentLang === 'uz' ? 
-                `Siz "${bookName}" darsligini tanladingiz.\nNarxi: 25,000 so'm.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lov chekini yuboring.` :
-                `You selected "${bookName}".\nPrice: 25,000 UZS.\n\nTo activate this book, please go to our official bot and send the payment receipt.`;
+                `Siz "${bookName}" darsligini tanladingiz.\nNarxi: Maxsus narx.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lov chekini yuboring.` :
+                `You selected "${bookName}".\nPrice: Special Price.\n\nTo activate this book, please go to our official bot and send the payment receipt.`;
             document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "Botga o'tish ➔" : "Go to Bot ➔";
             document.getElementById("modalRedirectLink").href = link;
             document.getElementById("modalRedirectLink").style.display = "block";
@@ -434,4 +439,71 @@
             toggleSidebar(false);
             const title = document.getElementById("modalTitle");
             const desc = document.getElementById("modalDesc");
-            document.getElementById("modalRedirectLink").style.display = "none
+            document.getElementById("modalRedirectLink").style.display = "none"; 
+            
+            if (type === 'guide') {
+                title.innerText = currentLang === 'uz' ? "Qo'llanma" : "Guide";
+                desc.innerText = currentLang === 'uz' ? 
+                    "1. Menyu orqali kerakli rukndagi kitoblarni toping.\n2. 'Sotib olish' tugmasini bosib bot orqali faollashtiring.\n3. Sotib olingan kitoblarni 'Obunalar' bo'limida ko'rishingiz mumkin." :
+                    "1. Find textbooks via categories menu.\n2. Click 'Buy' to activate via official bot.\n3. Track your unlocked books in 'Subscriptions' section.";
+            } else {
+                title.innerText = currentLang === 'uz' ? "Biz haqimizda" : "About Us";
+                desc.innerText = currentLang === 'uz' ? 
+                    "My Vocabularies - ingliz tili darsliklari va lug'at boyligini oshirishga mo'ljallangan zamonaviy WebApp platformasi. Biz bilan eng interaktiv uslubda o'rganing." :
+                    "My Vocabularies - a state-of-the-art WebApp platform designed to boost your English vocabulary and textbooks experience. Learn interactively with us.";
+            }
+            document.getElementById("customModal").style.display = "flex";
+        }
+
+        function closeModal() { document.getElementById("customModal").style.display = "none"; }
+
+        // --- KARUSEL HARAKATI ---
+        function moveBooks(direction) {
+            if (visibleCards.length <= 1) return;
+            currentBookIndex += direction;
+            if (currentBookIndex < 0) currentBookIndex = 0;
+            if (currentBookIndex > visibleCards.length - 1) currentBookIndex = visibleCards.length - 1; 
+            
+            const slider = document.getElementById("booksSlider");
+            const offset = currentBookIndex * 320; 
+            slider.style.transform = `translateX(-${offset}px)`;
+        }
+
+        // --- TIL SOZLAMALARI ---
+        const translations = {
+            uz: {
+                "m-menu-title": "Menyu", "m-cate-title": "Kitoblar", "m-obuna-title": "Obunalar", "m-guide": "Qo'llanma", "m-about": "Biz haqimizda",
+                "sec-title": "— KITOBLAR RO'YXATI —", "pay-title": "— TO'LOV TIZIMLARI —", "footer-text": "© 2026 My Vocabularies. Barcha huquqlar himoyalangan."
+            },
+            en: {
+                "m-menu-title": "Menu", "m-cate-title": "Books Categories", "m-obuna-title": "Subscriptions", "m-guide": "User Guide", "m-about": "About Us",
+                "sec-title": "— BOOKS LIST —", "pay-title": "— PAYMENT SYSTEMS —", "footer-text": "© 2026 My Vocabularies. All rights reserved."
+            }
+        };
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            for (let key in translations[lang]) {
+                const element = document.getElementById(key);
+                if (element) element.innerText = translations[lang][key];
+            }
+            localStorage.setItem('selectedLang', lang);
+            checkBookAccess(); 
+        }
+
+        // Banner timer
+        let currentSlide = 0;
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 3;
+            const container = document.getElementById("sliderContainer");
+            if(container) container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+        }, 6000);
+
+        window.onload = function() {
+            const savedLang = localStorage.getItem('selectedLang') || 'uz';
+            document.querySelector('.lang-select').value = savedLang;
+            changeLanguage(savedLang);
+        }
+    </script>
+</body>
+</html>
