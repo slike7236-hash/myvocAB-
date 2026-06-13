@@ -1,1 +1,208 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGame Portal</title>
+    <style>
+        :root {
+            --primary-color: #0b1d33;
+            --accent-color: #3498db;
+            --bg-color: #f7f5f0;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0; padding: 0;
+            background-color: var(--bg-color);
+            color: #333;
+        }
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+        }
+        .logo { font-size: 24px; font-weight: bold; }
+        .nav-links a { color: white; text-decoration: none; margin-left: 20px; font-size: 16px; }
+        
+        /* Til tanlash tugmasi */
+        .lang-select {
+            background: #2c3e50;
+            color: white;
+            border: 1px solid #444;
+            padding: 5px 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
+        }
 
+        /* Banner */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero h1 { font-size: 42px; margin-bottom: 10px; }
+        .hero p { font-size: 18px; color: #ddd; }
+
+        /* Kitoblar bo'limi */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            text-transform: uppercase;
+        }
+        .books-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+        .book-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            width: 250px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .book-img {
+            width: 150px;
+            height: 220px;
+            background-color: #34495e;
+            margin: 0 auto 15px auto;
+            border-radius: 4px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+        }
+        .book-title { font-size: 20px; margin: 10px 0; font-weight: bold; }
+        .book-level { color: #27ae60; font-weight: bold; margin-bottom: 15px; }
+        .book-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+        .book-btn:hover { background-color: var(--accent-color); }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="logo">📚 EduGame</div>
+        <div class="nav-links">
+            <select class="lang-select" onchange="changeLanguage(this.value)">
+                <option value="uz">O'zbekcha</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 data-key="hero-title">Siz izlagan eng sara kitoblar</h1>
+        <p data-key="hero-desc">Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!</p>
+    </div>
+
+    <div class="section-title" data-key="section-title">— Kitoblar Ro'yxati —</div>
+    
+    <div class="books-grid">
+        <div class="book-card">
+            <div class="book-img" style="background-color: #1abc9c;">4000 Words</div>
+            <div class="book-title">Essential Words</div>
+            <div class="book-level" data-key="level-easy">Boshlang'ich</div>
+            <a href="essential-words/index.html" class="book-btn" data-key="btn-open">Mavzularni ochish →</a>
+        </div>
+
+        <div class="book-card">
+            <div class="book-img" style="background-color: #9b59b6;">Solutions</div>
+            <div class="book-title">Solutions</div>
+            <div class="book-level" data-key="level-medium">O'rta daraja</div>
+            <a href="solutions-book/index.html" class="book-btn" data-key="btn-open">Mavzularni ochish →</a>
+        </div>
+
+        <div class="book-card">
+            <div class="book-img" style="background-color: #e67e22;">1000 Words</div>
+            <div class="book-title">1000 Words</div>
+            <div class="book-level" data-key="level-hard">Yuqori daraja</div>
+            <a href="1000-words/index.html" class="book-btn" data-key="btn-open">Mavzularni ochish →</a>
+        </div>
+    </div>
+
+    <footer>
+        <p data-key="footer-text">© 2026 EduGame onlayn portali. Barcha huquqlar himoyalangan.</p>
+    </footer>
+
+    <script>
+        // Tilllar lug'ati
+        const translations = {
+            uz: {
+                "hero-title": "Siz izlagan eng sara darsliklar",
+                "hero-desc": "Bilim — qalb chirog'i. O'zingizga mos darslikni tanlang!",
+                "section-title": "— Darsliklar Ro'yxati —",
+                "level-easy": "🟢 Boshlang'ich (Beginner)",
+                "level-medium": "🟡 O'rta daraja (Intermediate)",
+                "level-hard": "🔴 Yuqori daraja (Advanced)",
+                "btn-open": "Mavzularni ochish →",
+                "footer-text": "© 2026 EduGame onlayn portali. Barcha huquqlar himoyalangan."
+            },
+            en: {
+                "hero-title": "Improve Your Vocabulary with Fun!",
+                "hero-desc": "Choose your textbook and start practicing your English right now.",
+                "section-title": "— CHOOSE YOUR TEXTBOOK —",
+                "level-easy": "🟢 Beginner Level",
+                "level-medium": "🟡 Intermediate Level",
+                "level-hard": "🔴 Advanced Level",
+                "btn-open": "Open Units ➔",
+                "footer-text": "© 2026 EduGame Online Portal. All rights reserved."
+            }
+        };
+
+        // Tilni almashtiruvchi funksiya
+        function changeLanguage(lang) {
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+            // Tanlangan tilni brauzer xotirasida saqlab qo'yish (keyingi kirganda ham eslab qolishi uchun)
+            localStorage.setItem('selectedLang', lang);
+        }
+
+        // Sahifa yuklanganda oxirgi tanlangan tilni tekshirish
+        window.onload = function() {
+            const savedLang = localStorage.getItem('selectedLang') || 'uz';
+            document.querySelector('.lang-select').value = savedLang;
+            changeLanguage(savedLang);
+        }
+    </script>
+</body>
+</html>
