@@ -55,11 +55,11 @@
         .slide h1 { font-size: 18px; margin: 0 0 5px 0; font-weight: bold; }
         .slide p { font-size: 12px; color: #f1c40f; margin: 0; }
 
-        /* INTERFEYS BADGELARI */
+        /* BADGELAR */
         .user-badge { text-align: center; margin: 0; font-weight: bold; color: #2c3e50; font-size: 12px; background: #fff; padding: 8px; border-bottom: 1px solid #ddd; }
         .section-title { text-align: center; margin: 20px 0 10px 0; font-size: 16px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; }
 
-        /* 📚 30 TA KITOB UCHUN PRO KARUSEL TIZIMI */
+        /* 📚 30 TA KITOB UCHUN MUKAMMAL KARUSEL TIZIMI */
         .carousel-wrapper {
             position: relative;
             width: 100%;
@@ -71,7 +71,7 @@
         .books-slider {
             display: flex;
             transition: transform 0.4s ease-out;
-            width: auto; /* Elementlar soniga qarab JS hisoblaydi */
+            width: auto;
         }
         .book-card { 
             background: white; border: 1px solid #e0e0e0; border-radius: 8px; 
@@ -85,25 +85,25 @@
             display: none !important;
         }
 
-        /* KITOB MUQOVASI STILI */
+        /* KITOB MUQOVASI STILI (GITHUB RASMLARI UCHUN OLCHAM) */
         .book-img { 
-            width: 115px; height: 160px; margin: 0 auto 10px auto; 
+            width: 120px; height: 170px; margin: 0 auto 10px auto; 
             display: block; border-radius: 4px; 
             box-shadow: 2px 2px 8px rgba(0,0,0,0.25); 
             object-fit: cover;
         }
-        .book-title { font-size: 15px; margin: 5px 0; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .book-title { font-size: 14px; margin: 5px 0; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center; }
         .book-price { color: #27ae60; font-weight: bold; font-size: 15px; margin-bottom: 10px; }
         
-        /* TUGMA STILI */
+        /* TUGMALAR */
         .book-btn { 
             display: inline-block; color: white; padding: 10px; 
             text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; font-size: 13px;
             box-sizing: border-box; border: none; cursor: pointer; transition: 0.2s;
+            text-align: center;
         }
         .book-btn:active { transform: scale(0.97); }
 
-        /* Karusel boshqaruv tugmalari */
         .nav-btn {
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(11, 29, 51, 0.85); color: white; border: none;
@@ -193,28 +193,28 @@
         <div class="books-slider" id="booksSlider">
             
             <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/516E8eXp6BL._AC_UF1000,1000_QL80_.jpg" class="book-img" alt="Book 1">
+                <img src="ess1.jpg" class="book-img" alt="Book 1">
                 <div class="book-title">Essential English Words 1</div>
                 <div class="book-price" id="p-price-1">💰 25,000 so'm</div>
                 <a href="#" class="book-btn" id="btn-read-1">Yuklanmoqda...</a>
             </div>
 
             <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51uI6Z638gL._AC_UF1000,1000_QL80_.jpg" class="book-img" alt="Book 2">
+                <img src="ess2.jpg" class="book-img" alt="Book 2">
                 <div class="book-title">Essential English Words 2</div>
                 <div class="book-price" id="p-price-2">💰 25,000 so'm</div>
                 <a href="#" class="book-btn" id="btn-read-2">Yuklanmoqda...</a>
             </div>
 
             <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51rYgU8C4eL._AC_UF1000,1000_QL80_.jpg" class="book-img" alt="Book 3">
+                <img src="ess3.jpg" class="book-img" alt="Book 3">
                 <div class="book-title">Essential English Words 3</div>
                 <div class="book-price" id="p-price-3">💰 25,000 so'm</div>
                 <a href="#" class="book-btn" id="btn-read-3">Yuklanmoqda...</a>
             </div>
 
             <div class="book-card">
-                <img src="https://m.media-amazon.com/images/I/51ZpY6wsh9L._AC_UF1000,1000_QL80_.jpg" class="book-img" alt="Book 4">
+                <img src="ess4.jpg" class="book-img" alt="Book 4">
                 <div class="book-title">Essential English Words 4</div>
                 <div class="book-price" id="p-price-4">💰 25,000 so'm</div>
                 <a href="#" class="book-btn" id="btn-read-4">Yuklanmoqda...</a>
@@ -281,20 +281,17 @@
 
     <script>
         // =============================================================
-        // 📋 1. SOTIB OLGANLARNING TELEGRAM ID RO'YXATI (BAZA)
+        // 📋 1. PREMIUM FOYDALANUVCHILAR TELEGRAM ID RO'YXATI
         // =============================================================
-        // Ruxsat berish: ID qarshisiga kitob kodini yozasiz.
-        // "kitob1", "kitob2", "kitob3", "kitob4" ... va h.k.
         const premiumUsers = {
-            651936747: ["kitob1", "kitob2"], // Rasmdagi Abdug'ani aka uchun namuna ruxsat
-            123456789: ["kitob1"],               
-            987654321: ["kitob3"]
+            651936747: ["kitob1", "kitob2"], // Rasmdagi ID raqamingiz uchun namuna ruxsat
+            123456789: ["kitob1"]
         };
 
-        // 🟢 Faqat ochiq turgan kitoblar soni (Hozirda 4 ta)
+        // Hozirda faqat 4 ta kitob ochiq turgani uchun:
         let activeBooksCount = 4; 
 
-        // --- Telegram Interfeys Integratsiyasi ---
+        // --- Telegram Integration ---
         const tg = window.Telegram.WebApp;
         tg.expand();
         const telegramUser = tg.initDataUnsafe?.user;
@@ -307,17 +304,14 @@
             document.getElementById("userInfo").innerText = "Foydalanuvchi: Brauzerdan kirildi (ID: ---)";
         }
 
-        // --- 🔐 KITOBLAR RUXSATINI AVTOMATIK NAZORAT QILISH TIZIMI ---
+        // --- 🔐 KITOBLAR RUXSATINI AVTOMATIK TEKSHIRISH ---
         function checkBookAccess() {
-            // Har bir kitobning sozlamalar massivi
             const booksData = [
                 { id: 1, code: "kitob1", name: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/SizningBotLink_kitob1" },
                 { id: 2, code: "kitob2", name: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/SizningBotLink_kitob2" },
                 { id: 3, code: "kitob3", name: "Essential English Words 3", path: "essential-words-3/index.html", link: "https://t.me/SizningBotLink_kitob3" },
                 { id: 4, code: "kitob4", name: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/SizningBotLink_kitob4" }
             ];
-
-            // Kelajakda 5-30 kitoblar ochilsa, ularni ham tepadagi ro'yxatga kiritib borasiz.
 
             booksData.forEach(book => {
                 const btn = document.getElementById(`btn-read-${book.id}`);
@@ -339,7 +333,7 @@
 
         checkBookAccess();
 
-        // --- MODAL MANTIQI ---
+        // --- MODAL TIZIMI ---
         function openModal(title, info, link) {
             document.getElementById("modalTitle").innerText = title;
             document.getElementById("modalDesc").innerText = `Siz "${title}" darsligini tanladingiz.\nHolati: ${info}.\n\nDavom etish va rasmiy bot orqali faollashtirish uchun pastdagi tugmani bosing.`;
@@ -348,7 +342,7 @@
         }
         function closeModal() { document.getElementById("customModal").style.display = "none"; }
 
-        // --- 📚 SIZ SUREDOR BO'LGAN KARUSEL HARAKATI ---
+        // --- 📚 TIKLANGAN KARUSEL HARAKATI ---
         let currentBookIndex = 0;
         function moveBooks(direction) {
             currentBookIndex += direction;
@@ -356,7 +350,6 @@
             if (currentBookIndex > activeBooksCount - 1) currentBookIndex = activeBooksCount - 1; 
             
             const slider = document.getElementById("booksSlider");
-            // Mobil ekran o'lchamini hisobga olgan holda aniq surish mantiqi
             const offset = currentBookIndex * 320; 
             slider.style.transform = `translateX(-${offset}px)`;
         }
@@ -388,7 +381,7 @@
             checkBookAccess(); 
         }
 
-        // --- 🎪 AVTOMATIK REKLAMA AFISHASI SLIDERI ---
+        // --- REKLAMA AFISHASI TIMERI ---
         let currentSlide = 0;
         setInterval(() => {
             currentSlide = (currentSlide + 1) % 3;
