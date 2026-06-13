@@ -11,6 +11,7 @@
             --primary-color: #0b1d33;
             --accent-color: #3498db;
             --bg-color: #f7f5f0;
+            --drawer-width: 260px;
         }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
@@ -33,9 +34,14 @@
             position: relative;
             z-index: 10;
         }
-        .marquee-zone { width: 55%; overflow: hidden; white-space: nowrap; }
+        .burger-btn {
+            background: none; border: none; color: white;
+            font-size: 22px; cursor: pointer; padding: 5px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .marquee-zone { width: 50%; overflow: hidden; white-space: nowrap; }
         .logo-marquee { 
-            font-size: 20px; font-weight: 900; display: inline-block; color: #fff;
+            font-size: 18px; font-weight: 900; display: inline-block; color: #fff;
             text-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
             animation: runInsideZone 8s linear infinite;
         }
@@ -46,12 +52,45 @@
             padding: 4px 6px; font-size: 12px; font-weight: bold; border-radius: 4px; cursor: pointer;
         }
 
-        /* REKLAMA BANNERI (SLIDER) */
+        /* ☰ SIDEBAR (YON MENU) STILI */
+        .sidebar {
+            position: fixed; top: 0; left: calc(-1 * var(--drawer-width));
+            width: var(--drawer-width); height: 100%;
+            background-color: #ffffff; box-shadow: 4px 0 15px rgba(0,0,0,0.25);
+            transition: left 0.3s ease; z-index: 150;
+            display: flex; flex-direction: column; box-sizing: border-box;
+        }
+        .sidebar.open { left: 0; }
+        .sidebar-overlay {
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            z-index: 140;
+        }
+        .sidebar-header {
+            background-color: var(--primary-color); color: white;
+            padding: 20px 15px; font-weight: bold; font-size: 16px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .sidebar-close { background: none; border: none; color: white; font-size: 20px; cursor: pointer; }
+        
+        .sidebar-menu { padding: 10px 0; overflow-y: auto; flex: 1; }
+        .menu-title { font-size: 12px; font-weight: bold; color: #7f8c8d; text-transform: uppercase; padding: 10px 15px 5px 15px; margin: 0; }
+        .menu-item { 
+            display: flex; align-items: center; gap: 10px;
+            padding: 12px 20px; color: #2c3e50; text-decoration: none; 
+            font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s;
+        }
+        .menu-item:active { background-color: #ecf0f1; }
+        .menu-item i { width: 18px; color: var(--accent-color); text-align: center; }
+        .sub-menu { padding-left: 15px; }
+        .sub-menu .menu-item { font-size: 13px; padding: 8px 20px; color: #555; }
+        .menu-sep { hieght: 1px; border-top: 1px solid #edf0f2; margin: 10px 0; }
+
+        /* REKLAMA BANNERI */
         .hero-wrapper {
             width: 100%; overflow: hidden; position: relative;
             background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
-            border-bottom: 3px solid var(--accent-color);
-            z-index: 1;
+            border-bottom: 3px solid var(--accent-color); z-index: 1;
         }
         .slider-container { display: flex; width: 300%; transition: transform 0.8s ease-in-out; }
         .slide { width: 100vw; box-sizing: border-box; color: white; text-align: center; padding: 25px 15px; min-height: 110px; display: flex; flex-direction: column; justify-content: center; flex-shrink: 0; }
@@ -62,59 +101,30 @@
         .user-badge { text-align: center; margin: 0; font-weight: bold; color: #2c3e50; font-size: 12px; background: #fff; padding: 8px; border-bottom: 1px solid #ddd; }
         .section-title { text-align: center; margin: 20px 0 10px 0; font-size: 16px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; }
 
-        /* 📚 KITOBLAR KARUSELI */
-        .carousel-wrapper {
-            position: relative;
-            width: 100%;
-            max-width: 320px;
-            margin: 0 auto;
-            overflow: hidden;
-            padding: 10px 0;
-            z-index: 5;
-        }
-        .books-slider {
-            display: flex;
-            transition: transform 0.4s ease-out;
-            width: auto;
-        }
+        /* KITOBLAR TIZIMI */
+        .carousel-wrapper { position: relative; width: 100%; max-width: 320px; margin: 0 auto; overflow: hidden; padding: 10px 0; z-index: 5; }
+        .books-slider { display: flex; transition: transform 0.4s ease-out; width: auto; }
         .book-card { 
             background: white; border: 1px solid #e0e0e0; border-radius: 8px; 
             width: 280px; padding: 15px; margin: 0 20px;
             text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.05); box-sizing: border-box;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 6;
+            flex-shrink: 0; position: relative; z-index: 6;
         }
         
-        .hidden-book {
-            display: none !important;
-        }
-
-        .book-img { 
-            width: 120px; height: 170px; margin: 0 auto 10px auto; 
-            display: block; border-radius: 4px; 
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.25); 
-            object-fit: cover;
-        }
+        .hidden-book { display: none !important; }
+        .book-img { width: 120px; height: 170px; margin: 0 auto 10px auto; display: block; border-radius: 4px; box-shadow: 2px 2px 8px rgba(0,0,0,0.25); object-fit: cover; }
         .book-title { font-size: 14px; margin: 5px 0; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center; }
         .book-price { color: #27ae60; font-weight: bold; font-size: 15px; margin-bottom: 10px; }
         
-        /* TUGMA STILI (Z-INDEX BOSILISHI UCHUN) */
         .book-btn { 
-            display: inline-block; color: white; padding: 10px; 
-            text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; font-size: 13px;
-            box-sizing: border-box; border: none; cursor: pointer; transition: 0.2s;
-            text-align: center;
-            position: relative;
-            z-index: 10;
+            display: inline-block; color: white; padding: 10px; text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; font-size: 13px;
+            box-sizing: border-box; border: none; cursor: pointer; transition: 0.2s; text-align: center; position: relative; z-index: 10;
         }
         .book-btn:active { transform: scale(0.97); }
 
         .nav-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(11, 29, 51, 0.85); color: white; border: none;
-            width: 36px; height: 36px; border-radius: 50%; font-size: 14px;
-            font-weight: bold; cursor: pointer; z-index: 8; display: flex; align-items: center; justify-content: center;
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(11, 29, 51, 0.85); color: white; border: none;
+            width: 36px; height: 36px; border-radius: 50%; font-size: 14px; font-weight: bold; cursor: pointer; z-index: 8; display: flex; align-items: center; justify-content: center;
         }
         .nav-btn:active { background: var(--accent-color); }
         .nav-btn.prev { left: 2px; }
@@ -123,11 +133,8 @@
         /* TO'LOV TIZIMLARI */
         .payment-grid { display: flex; justify-content: center; gap: 10px; margin: 10px auto; padding: 0 15px; max-width: 340px; }
         .payment-card { 
-            background: white; border: 2px solid #e0e0e0; border-radius: 6px; 
-            flex: 1; padding: 10px 2px; font-size: 13px; font-weight: bold; 
-            text-align: center; cursor: pointer; box-sizing: border-box;
-            display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s;
-            position: relative; z-index: 10;
+            background: white; border: 2px solid #e0e0e0; border-radius: 6px; flex: 1; padding: 10px 2px; font-size: 13px; font-weight: bold; 
+            text-align: center; cursor: pointer; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s; position: relative; z-index: 10;
         }
         .payment-card:active { transform: scale(0.95); }
         .payment-card i { font-size: 18px; }
@@ -136,14 +143,8 @@
         .visa-btn { color: #1a1f71; border-color: #1a1f71; }
 
         /* MODAL ALERT OYNASI */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); z-index: 100; justify-content: center; align-items: center;
-        }
-        .modal-box {
-            background: white; padding: 20px; border-radius: 10px; width: 85%; max-width: 300px;
-            text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: popIn 0.3s ease;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
+        .modal-box { background: white; padding: 20px; border-radius: 10px; width: 85%; max-width: 300px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: popIn 0.3s ease; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .modal-box h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 18px; }
         .modal-box p { font-size: 13px; color: #555; margin-bottom: 20px; line-height: 1.4; text-align: left; white-space: pre-line; }
@@ -161,8 +162,36 @@
 </head>
 <body>
 
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+
+    <div class="sidebar" id="sidebarMenu">
+        <div class="sidebar-header">
+            <span id="m-menu-title">Menyu</span>
+            <button class="sidebar-close" onclick="toggleSidebar(false)">✕</button>
+        </div>
+        <div class="sidebar-menu">
+            <p class="menu-title" id="m-cate-title">Kitoblar</p>
+            <div class="sub-menu">
+                <div class="menu-item" onclick="filterBooks('essential')"><i class="fa-solid fa-book"></i> Essential Words</div>
+                <div class="menu-item" onclick="filterBooks('solution')"><i class="fa-solid fa-graduation-cap"></i> Solution Books</div>
+                <div class="menu-item" onclick="filterBooks('read')"><i class="fa-solid fa-book-open"></i> Read and Understand</div>
+                <div class="menu-item" onclick="filterBooks('ielts')"><i class="fa-solid fa-star"></i> IELTS Vocabularies</div>
+            </div>
+
+            <div class="menu-sep"></div>
+            <p class="menu-title" id="m-obuna-title">Obunalar</p>
+            <div class="sub-menu">
+                <div class="menu-item" onclick="filterBooks('premium')"><i class="fa-solid fa-circle-check"></i> Obuna bo'linganlar</div>
+            </div>
+
+            <div class="menu-sep"></div>
+            <div class="menu-item" onclick="openInfoModal('guide')"><i class="fa-solid fa-circle-info"></i> <span id="m-guide">Qo'llanma</span></div>
+            <div class="menu-item" onclick="openInfoModal('about')"><i class="fa-solid fa-circle-user"></i> <span id="m-about">Biz haqimizda</span></div>
+        </div>
+    </div>
+
     <div class="navbar">
-        <div style="width: 35px;"></div>
+        <button class="burger-btn" onclick="toggleSidebar(true)">☰</button>
         <div class="marquee-zone">
             <div class="logo-marquee">My Vocabularies</div>
         </div>
@@ -199,60 +228,54 @@
         <button class="nav-btn prev" onclick="moveBooks(-1)"><i class="fa-solid fa-angle-left"></i></button>
         <div class="books-slider" id="booksSlider">
             
-            <div class="book-card">
+            <div class="book-card" data-type="essential">
                 <img src="ess1.jpg" class="book-img" alt="Book 1">
                 <div class="book-title">Essential English Words 1</div>
                 <div class="book-price" id="p-price-1">💰 25,000 so'm</div>
                 <button class="book-btn" id="btn-read-1">...</button>
             </div>
 
-            <div class="book-card">
+            <div class="book-card" data-type="essential">
                 <img src="ess2.jpg" class="book-img" alt="Book 2">
                 <div class="book-title">Essential English Words 2</div>
                 <div class="book-price" id="p-price-2">💰 25,000 so'm</div>
                 <button class="book-btn" id="btn-read-2">...</button>
             </div>
 
-            <div class="book-card">
+            <div class="book-card" data-type="essential">
                 <img src="ess3.jpg" class="book-img" alt="Book 3">
                 <div class="book-title">Essential English Words 3</div>
                 <div class="book-price" id="p-price-3">💰 25,000 so'm</div>
                 <button class="book-btn" id="btn-read-3">...</button>
             </div>
 
-            <div class="book-card">
+            <div class="book-card" data-type="essential">
                 <img src="ess4.jpg" class="book-img" alt="Book 4">
                 <div class="book-title">Essential English Words 4</div>
                 <div class="book-price" id="p-price-4">💰 25,000 so'm</div>
                 <button class="book-btn" id="btn-read-4">...</button>
             </div>
 
-            <div class="book-card hidden-book" id="card-5"><div class="book-title">Yopiq Kitob 5</div><div class="book-price" id="p-price-5">💰 25,000 so'm</div><button class="book-btn" id="btn-read-5">...</button></div>
-            <div class="book-card hidden-book" id="card-6"><div class="book-title">Yopiq Kitob 6</div><div class="book-price" id="p-price-6">💰 25,000 so'm</div><button class="book-btn" id="btn-read-6">...</button></div>
-            <div class="book-card hidden-book" id="card-7"><div class="book-title">Yopiq Kitob 7</div><div class="book-price" id="p-price-7">💰 25,000 so'm</div><button class="book-btn" id="btn-read-7">...</button></div>
-            <div class="book-card hidden-book" id="card-8"><div class="book-title">Yopiq Kitob 8</div><div class="book-price" id="p-price-8">💰 25,000 so'm</div><button class="book-btn" id="btn-read-8">...</button></div>
-            <div class="book-card hidden-book" id="card-9"><div class="book-title">Yopiq Kitob 9</div><div class="book-price" id="p-price-9">💰 25,000 so'm</div><button class="book-btn" id="btn-read-9">...</button></div>
-            <div class="book-card hidden-book" id="card-10"><div class="book-title">Yopiq Kitob 10</div><div class="book-price" id="p-price-10">💰 25,000 so'm</div><button class="book-btn" id="btn-read-10">...</button></div>
-            <div class="book-card hidden-book" id="card-11"><div class="book-title">Yopiq Kitob 11</div><div class="book-price" id="p-price-11">💰 25,000 so'm</div><button class="book-btn" id="btn-read-11">...</button></div>
-            <div class="book-card hidden-book" id="card-12"><div class="book-title">Yopiq Kitob 12</div><div class="book-price" id="p-price-12">💰 25,000 so'm</div><button class="book-btn" id="btn-read-12">...</button></div>
-            <div class="book-card hidden-book" id="card-13"><div class="book-title">Yopiq Kitob 13</div><div class="book-price" id="p-price-13">💰 25,000 so'm</div><button class="book-btn" id="btn-read-13">...</button></div>
-            <div class="book-card hidden-book" id="card-14"><div class="book-title">Yopiq Kitob 14</div><div class="book-price" id="p-price-14">💰 25,000 so'm</div><button class="book-btn" id="btn-read-14">...</button></div>
-            <div class="book-card hidden-book" id="card-15"><div class="book-title">Yopiq Kitob 15</div><div class="book-price" id="p-price-15">💰 25,000 so'm</div><button class="book-btn" id="btn-read-15">...</button></div>
-            <div class="book-card hidden-book" id="card-16"><div class="book-title">Yopiq Kitob 16</div><div class="book-price" id="p-price-16">💰 25,000 so'm</div><button class="book-btn" id="btn-read-16">...</button></div>
-            <div class="book-card hidden-book" id="card-17"><div class="book-title">Yopiq Kitob 17</div><div class="book-price" id="p-price-17">💰 25,000 so'm</div><button class="book-btn" id="btn-read-17">...</button></div>
-            <div class="book-card hidden-book" id="card-18"><div class="book-title">Yopiq Kitob 18</div><div class="book-price" id="p-price-18">💰 25,000 so'm</div><button class="book-btn" id="btn-read-18">...</button></div>
-            <div class="book-card hidden-book" id="card-19"><div class="book-title">Yopiq Kitob 19</div><div class="book-price" id="p-price-19">💰 25,000 so'm</div><button class="book-btn" id="btn-read-19">...</button></div>
-            <div class="book-card hidden-book" id="card-20"><div class="book-title">Yopiq Kitob 20</div><div class="book-price" id="p-price-20">💰 25,000 so'm</div><button class="book-btn" id="btn-read-20">...</button></div>
-            <div class="book-card hidden-book" id="card-21"><div class="book-title">Yopiq Kitob 21</div><div class="book-price" id="p-price-21">💰 25,000 so'm</div><button class="book-btn" id="btn-read-21">...</button></div>
-            <div class="book-card hidden-book" id="card-22"><div class="book-title">Yopiq Kitob 22</div><div class="book-price" id="p-price-22">💰 25,000 so'm</div><button class="book-btn" id="btn-read-22">...</button></div>
-            <div class="book-card hidden-book" id="card-23"><div class="book-title">Yopiq Kitob 23</div><div class="book-price" id="p-price-23">💰 25,000 so'm</div><button class="book-btn" id="btn-read-23">...</button></div>
-            <div class="book-card hidden-book" id="card-24"><div class="book-title">Yopiq Kitob 24</div><div class="book-price" id="p-price-24">💰 25,000 so'm</div><button class="book-btn" id="btn-read-24">...</button></div>
-            <div class="book-card hidden-book" id="card-25"><div class="book-title">Yopiq Kitob 25</div><div class="book-price" id="p-price-25">💰 25,000 so'm</div><button class="book-btn" id="btn-read-25">...</button></div>
-            <div class="book-card hidden-book" id="card-26"><div class="book-title">Yopiq Kitob 26</div><div class="book-price" id="p-price-26">💰 25,000 so'm</div><button class="book-btn" id="btn-read-26">...</button></div>
-            <div class="book-card hidden-book" id="card-27"><div class="book-title">Yopiq Kitob 27</div><div class="book-price" id="p-price-27">💰 25,000 so'm</div><button class="book-btn" id="btn-read-27">...</button></div>
-            <div class="book-card hidden-book" id="card-28"><div class="book-title">Yopiq Kitob 28</div><div class="book-price" id="p-price-28">💰 25,000 so'm</div><button class="book-btn" id="btn-read-28">...</button></div>
-            <div class="book-card hidden-book" id="card-29"><div class="book-title">Yopiq Kitob 29</div><div class="book-price" id="p-price-29">💰 25,000 so'm</div><button class="book-btn" id="btn-read-29">...</button></div>
-            <div class="book-card hidden-book" id="card-30"><div class="book-title">Yopiq Kitob 30</div><div class="book-price" id="p-price-30">💰 25,000 so'm</div><button class="book-btn" id="btn-read-30">...</button></div>
+            <div class="book-card hidden-book" data-type="solution" id="card-sol1">
+                <img src="ess1.jpg" class="book-img" alt="Solution 1">
+                <div class="book-title">Solution Elementary Book</div>
+                <div class="book-price">💰 30,000 so'm</div>
+                <button class="book-btn" onclick="openBookModal('Solution Elementary Book', '#')">Sotib olish 🛒</button>
+            </div>
+
+            <div class="book-card hidden-book" data-type="read" id="card-read1">
+                <img src="ess2.jpg" class="book-img" alt="Read 1">
+                <div class="book-title">Read & Understand Vol 1</div>
+                <div class="book-price">💰 20,000 so'm</div>
+                <button class="book-btn" onclick="openBookModal('Read & Understand Vol 1', '#')">Sotib olish 🛒</button>
+            </div>
+
+            <div class="book-card hidden-book" data-type="ielts" id="card-ielts1">
+                <img src="ess3.jpg" class="book-img" alt="IELTS 1">
+                <div class="book-title">IELTS Vocabulary Master</div>
+                <div class="book-price">💰 35,000 so'm</div>
+                <button class="book-btn" onclick="openBookModal('IELTS Vocabulary Master', '#')">Sotib olish 🛒</button>
+            </div>
 
         </div>
         <button class="nav-btn next" onclick="moveBooks(1)"><i class="fa-solid fa-angle-right"></i></button>
@@ -288,15 +311,16 @@
 
     <script>
         // =============================================================
-        // 📋 1. SOTIB OLGANLAR RO'YXATI (HOZIRCHA BO'SH / TOZALANDI)
+        // 📋 PREMIUM FOYDALANUVCHILAR RO'YXATI
         // =============================================================
         const premiumUsers = {
-            // Kim sotib olsa ID raqamini pastdagidek qo'shib qo'yasiz:
-            // 651936747: ["kitob1"]
+            // ID raqamlar shu yerda tekshiriladi
+            // 1992257692: ["kitob1"] 
         };
 
-        let activeBooksCount = 4; 
         let currentLang = 'uz';
+        let visibleCards = [];
+        let currentBookIndex = 0;
 
         // --- Telegram Integration ---
         const tg = window.Telegram.WebApp;
@@ -311,7 +335,6 @@
             document.getElementById("userInfo").innerText = "Foydalanuvchi: Brauzerdan kirildi (ID: ---)";
         }
 
-        // Kitob ma'lumotlar bazasi
         const booksData = [
             { id: 1, code: "kitob1", name: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/SizningBotLink_kitob1" },
             { id: 2, code: "kitob2", name: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/SizningBotLink_kitob2" },
@@ -319,19 +342,60 @@
             { id: 4, code: "kitob4", name: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/SizningBotLink_kitob4" }
         ];
 
-        // --- 🔐 KITOBLAR TUGMASI VA TILINI TEKSHIRISH ---
+        // --- 📊 SIDEBAR OCHILISH FUNKSIYASI ---
+        function toggleSidebar(open) {
+            const sidebar = document.getElementById("sidebarMenu");
+            const overlay = document.getElementById("sidebarOverlay");
+            if (open) {
+                sidebar.classList.add("open");
+                overlay.style.display = "block";
+            } else {
+                sidebar.classList.remove("open");
+                overlay.style.display = "none";
+            }
+        }
+
+        // --- 🔍 SMART KATEGORIYA FILTRI ---
+        function filterBooks(category) {
+            toggleSidebar(false);
+            const cards = document.querySelectorAll('.book-card');
+            
+            cards.forEach(card => {
+                const type = card.getAttribute('data-type');
+                card.classList.add('hidden-book'); // Avval hammasini yashirish
+                
+                if (category === 'premium') {
+                    // Faqat foydalanuvchi sotib olgan kitoblarni chiqarish
+                    const isOwned = booksData.some(b => b.id && premiumUsers[userId]?.includes(b.code) && card.querySelector(`[id$="-${b.id}"]`));
+                    if (isOwned) card.classList.remove('hidden-book');
+                } else if (type === category) {
+                    card.classList.remove('hidden-book');
+                }
+            });
+
+            updateCarouselView();
+        }
+
+        function updateCarouselView() {
+            const cards = document.querySelectorAll('.book-card');
+            visibleCards = Array.from(cards).filter(card => !card.classList.contains('hidden-book'));
+            currentBookIndex = 0;
+            
+            const slider = document.getElementById("booksSlider");
+            slider.style.transform = `translateX(0px)`;
+        }
+
+        // --- 🔐 HUQUQLARNI TEKSHIRISH ---
         function checkBookAccess() {
             booksData.forEach(book => {
                 const btn = document.getElementById(`btn-read-${book.id}`);
                 const priceLabel = document.getElementById(`p-price-${book.id}`);
                 if (!btn) return;
 
-                // Narxlar matnini tilga moslash
                 if (priceLabel) {
                     priceLabel.innerText = currentLang === 'uz' ? "💰 25,000 so'm" : "💰 25,000 UZS";
                 }
 
-                // Ruxsatni tekshirish
                 if (premiumUsers[userId] && premiumUsers[userId].includes(book.code)) {
                     btn.onclick = function() { window.location.href = book.path; };
                     btn.style.backgroundColor = "#27ae60"; 
@@ -342,86 +406,32 @@
                     btn.innerText = currentLang === 'uz' ? "Sotib olish 🛒" : "Buy 🛒";
                 }
             });
+            updateCarouselView();
         }
 
-        // --- MODAL OCHILISH FUNKSIYALARI ---
+        // --- MODALLAR ---
         function openBookModal(bookName, link) {
             document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Sotib olish" : "Purchase";
-            
-            if (currentLang === 'uz') {
-                document.getElementById("modalDesc").innerText = `Siz "${bookName}" darsligini tanladingiz.\nNarxi: 25,000 so'm.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lovni amalga oshiring.`;
-                document.getElementById("modalRedirectLink").innerText = "Botga o'tish ➔";
-            } else {
-                document.getElementById("modalDesc").innerText = `You selected "${bookName}".\nPrice: 25,000 UZS.\n\nTo activate this book, please proceed to our official bot and complete the payment.`;
-                document.getElementById("modalRedirectLink").innerText = "Go to Bot ➔";
-            }
-            
+            document.getElementById("modalDesc").innerText = currentLang === 'uz' ? 
+                `Siz "${bookName}" darsligini tanladingiz.\nNarxi: 25,000 so'm.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lov chekini yuboring.` :
+                `You selected "${bookName}".\nPrice: 25,000 UZS.\n\nTo activate this book, please go to our official bot and send the payment receipt.`;
+            document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "Botga o'tish ➔" : "Go to Bot ➔";
             document.getElementById("modalRedirectLink").href = link;
+            document.getElementById("modalRedirectLink").style.display = "block";
             document.getElementById("customModal").style.display = "flex";
         }
 
         function openPaymentModal(title, text, link) {
             document.getElementById("modalTitle").innerText = title;
             document.getElementById("modalDesc").innerText = text;
-            document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "To'lov tizimiga o'tish ➔" : "Proceed to Payment ➔";
+            document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "To'lovga o'tish ➔" : "Proceed ➔";
             document.getElementById("modalRedirectLink").href = link;
+            document.getElementById("modalRedirectLink").style.display = "block";
             document.getElementById("customModal").style.display = "flex";
         }
 
-        function closeModal() { document.getElementById("customModal").style.display = "none"; }
-
-        // --- 📚 KARUSEL HARAKATI ---
-        let currentBookIndex = 0;
-        function moveBooks(direction) {
-            currentBookIndex += direction;
-            if (currentBookIndex < 0) currentBookIndex = 0;
-            if (currentBookIndex > activeBooksCount - 1) currentBookIndex = activeBooksCount - 1; 
-            
-            const slider = document.getElementById("booksSlider");
-            const offset = currentBookIndex * 320; 
-            slider.style.transform = `translateX(-${offset}px)`;
-        }
-
-        // --- 🌐 GLOBAL TIL LUG'ATI ---
-        const translations = {
-            uz: {
-                "hero-title-1": "⚡ CLICK orqali oson to'lov!", "hero-desc-1": "10% keshbekka ega bo'ling.",
-                "hero-title-2": "💸 PAYME bilan 0% komissiya!", "hero-desc-2": "Darsliklarni bir zumda faollashtiring.",
-                "hero-title-3": "🎉 Intellektual o'yinlar!", "hero-desc-3": "Bilimingizni yuqori darajaga olib chiqing.",
-                "sec-title": "— KITOBLAR RO'YXATI —", "pay-title": "— TO'LOV TIZIMLARI —",
-                "footer-text": "© 2026 My Vocabularies. Barcha huquqlar himoyalangan."
-            },
-            en: {
-                "hero-title-1": "⚡ Easy payment via CLICK!", "hero-desc-1": "Get 10% cashback bonuses.",
-                "hero-title-2": "💸 0% Commission with PAYME!", "hero-desc-2": "Activate textbooks instantly.",
-                "hero-title-3": "🎉 Intellectual Games!", "hero-desc-3": "Take your knowledge to the top.",
-                "sec-title": "— BOOKS LIST —", "pay-title": "— PAYMENT SYSTEMS —",
-                "footer-text": "© 2026 My Vocabularies. All rights reserved."
-            }
-        };
-
-        function changeLanguage(lang) {
-            currentLang = lang;
-            for (let key in translations[lang]) {
-                const element = document.getElementById(key);
-                if (element) element.innerText = translations[lang][key];
-            }
-            localStorage.setItem('selectedLang', lang);
-            checkBookAccess(); 
-        }
-
-        // --- REKLAMA SLIDERI ---
-        let currentSlide = 0;
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % 3;
-            document.getElementById("sliderContainer").style.transform = `translateX(-${currentSlide * 100}vw)`;
-        }, 6000);
-
-        window.onload = function() {
-            const savedLang = localStorage.getItem('selectedLang') || 'uz';
-            document.querySelector('.lang-select').value = savedLang;
-            changeLanguage(savedLang);
-        }
-    </script>
-</body>
-</html>
+        function openInfoModal(type) {
+            toggleSidebar(false);
+            const title = document.getElementById("modalTitle");
+            const desc = document.getElementById("modalDesc");
+            document.getElementById("modalRedirectLink").style.display = "none
