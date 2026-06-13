@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduGame Portal</title>
+    <title>My Vocabulary Portal</title>
     <style>
         :root {
             --primary-color: #0b1d33;
@@ -25,7 +25,23 @@
             align-items: center;
             padding: 15px 30px;
         }
-        .logo { font-size: 24px; font-weight: bold; }
+        
+        /* 🔥 AYLALANIB TURUVCHI KATTA LOGOTIP */
+        .logo-container {
+            perspective: 1000px; /* 3D effekt uchun */
+        }
+        .logo { 
+            font-size: 32px; /* Kattalashtirildi */
+            font-weight: bold; 
+            display: inline-block;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            animation: rotateLogo 6s linear infinite; /* 6 soniyada bir aylanadi */
+        }
+        @keyframes rotateLogo {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
         
         /* Til tanlash tugmasi */
         .lang-select {
@@ -39,15 +55,31 @@
             outline: none;
         }
 
-        /* Banner */
+        /* 🎪 REKLAMA BANNERI (SLIDER / CAROUSEL) */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
             color: white;
             text-align: center;
-            padding: 60px 20px;
+            padding: 70px 20px;
+            position: relative;
+            overflow: hidden;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
-        .hero h1 { font-size: 42px; margin-bottom: 10px; }
-        .hero p { font-size: 18px; color: #ddd; }
+        .slide {
+            display: none;
+            animation: fadeEffect 1s;
+        }
+        .slide h1 { font-size: 42px; margin: 0 0 10px 0; font-weight: bold; }
+        .slide p { font-size: 18px; color: #ddd; margin: 0; }
+        
+        @keyframes fadeEffect {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
 
         /* Kitoblar bo'limi */
         .section-title {
@@ -156,7 +188,9 @@
 <body>
 
     <div class="navbar">
-        <div class="logo">📚 KitobUz / EduGame</div>
+        <div class="logo-container">
+            <div class="logo">My Vocabulary</div>
+        </div>
         <div>
             <select class="lang-select" onchange="changeLanguage(this.value)">
                 <option value="uz">O'zbekcha</option>
@@ -166,8 +200,18 @@
     </div>
 
     <div class="hero">
-        <h1 data-key="hero-title">Siz izlagan eng sara kitoblar</h1>
-        <p data-key="hero-desc">Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!</p>
+        <div class="slide">
+            <h1 data-key="hero-title-1">Siz izlagan eng sara kitoblar</h1>
+            <p data-key="hero-desc-1">Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!</p>
+        </div>
+        <div class="slide">
+            <h1 data-key="hero-title-2">⚡ CLICK orqali oson to'lov!</h1>
+            <p data-key="hero-desc-2">Uydan chiqmasdan xaridlarni 10% keshbek bilan amalga oshiring.</p>
+        </div>
+        <div class="slide">
+            <h1 data-key="hero-title-3">🎉 Yangi o'yinlar qo'shildi!</h1>
+            <p data-key="hero-desc-3">Lug'at boyligingizni oshiring va do'stlaringiz bilan musobaqalashing.</p>
+        </div>
     </div>
 
     <div class="section-title" data-key="section-title">— Kitoblar Ro'yxati —</div>
@@ -209,10 +253,15 @@
     </footer>
 
     <script>
+        // TILLAR LUG'ATI
         const translations = {
             uz: {
-                "hero-title": "Siz izlagan eng sara kitoblar",
-                "hero-desc": "Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!",
+                "hero-title-1": "Siz izlagan eng sara kitoblar",
+                "hero-desc-1": "Yaxshi kitob — qalb chirog'i. O'zingizga mosini tanlang!",
+                "hero-title-2": "⚡ CLICK orqali oson to'lov!",
+                "hero-desc-2": "Uydan chiqmasdan xaridlarni 10% keshbek bilan amalga oshiring.",
+                "hero-title-3": "🎉 Yangi o'yinlar qo'shildi!",
+                "hero-desc-3": "Lug'at boyligingizni oshiring va do'stlaringiz bilan musobaqalashing.",
                 "section-title": "— Kitoblar Ro'yxati —",
                 "price-1": "💰 45,000 so'm",
                 "price-2": "💰 38,000 so'm",
@@ -222,8 +271,12 @@
                 "footer-text": "© 2026 KitobUz onlayn do'koni. Barcha huquqlar himoyalangan."
             },
             en: {
-                "hero-title": "The Best Books You Are Looking For",
-                "hero-desc": "A good book is a light for the soul. Choose the best one for yourself!",
+                "hero-title-1": "The Best Books You Are Looking For",
+                "hero-desc-1": "A good book is a light for the soul. Choose the best one for yourself!",
+                "hero-title-2": "⚡ Easy Payment via CLICK!",
+                "hero-desc-2": "Make your purchases from home and get 10% cashback bonuses.",
+                "hero-title-3": "🎉 New Games Added!",
+                "hero-desc-3": "Improve your vocabulary and compete with your friends online.",
                 "section-title": "— BOOKS LIST —",
                 "price-1": "💰 45,000 UZS",
                 "price-2": "💰 38,000 UZS",
@@ -234,7 +287,10 @@
             }
         };
 
+        // TILNI ALMASHTIRISH FUNKSIYASI
+        let currentLang = 'uz';
         function changeLanguage(lang) {
+            currentLang = lang;
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-key');
@@ -245,10 +301,25 @@
             localStorage.setItem('selectedLang', lang);
         }
 
+        // REKLAMA ALMASHTIRISH MANTIQI (AUTOMATIC SLIDER)
+        let slideIndex = 0;
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";  
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}    
+            slides[slideIndex-1].style.style.display = "block";  
+            setTimeout(showSlides, 4000); // Har 4 soniyada reklama almashadi
+        }
+
+        // SAHIFA YUKLANGANDA ISHGA TUSHADIGAN FUNKSIYALAR
         window.onload = function() {
             const savedLang = localStorage.getItem('selectedLang') || 'uz';
             document.querySelector('.lang-select').value = savedLang;
             changeLanguage(savedLang);
+            showSlides(); // Reklama slayderini yoqish
         }
     </script>
 </body>
