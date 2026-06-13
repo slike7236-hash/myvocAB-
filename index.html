@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Vocabulary Portal</title>
+    <title>My Vocabularies Portal</title>
     <style>
         :root {
             --primary-color: #0b1d33;
@@ -16,6 +16,7 @@
             background-color: var(--bg-color);
             color: #333;
         }
+        
         /* Navbar */
         .navbar {
             background-color: var(--primary-color);
@@ -24,31 +25,35 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 30px;
-            overflow: hidden;
         }
-        
-        /* 🏃‍♂️ O'NGDAN CHAPGA YUGURUVCHI KATTA MATN (MARQUEE EFFECT) */
-        .marquee-container {
-            flex-grow: 1;
+
+        /* 🎯 MARKAZLASHTIRILGAN VA CHEGARALANGAN YUGURUVCHI MATN HUDUDI */
+        .marquee-zone {
+            width: 50%; /* Ekranning qoq markazidan 50% joy ajratadi */
+            margin: 0 auto; /* Chap va o'ng tomondan bir xil teng joy qoldiradi */
             overflow: hidden;
             white-space: nowrap;
-            margin-right: 20px;
+            border-left: 2px dashed rgba(255,255,255,0.2); /* Vizual chegara (ixtiyoriy) */
+            border-right: 2px dashed rgba(255,255,255,0.2);
         }
         .logo-marquee { 
-            font-size: 38px; /* Ancha kattalashtirildi */
+            font-size: 38px;
             font-weight: 900; 
             display: inline-block;
             color: #fff;
             text-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
             letter-spacing: 2px;
-            animation: runText 12s linear infinite; /* Harakatlanish tezligi */
+            animation: runInsideZone 8s linear infinite;
         }
-        @keyframes runText {
+        /* Faqat belgilangan hudud ichida harakatlanish animatsiyasi */
+        @keyframes runInsideZone {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
         
-        /* Til tanlash tugmasi */
+        .lang-box {
+            flex-shrink: 0;
+        }
         .lang-select {
             background: #2c3e50;
             color: white;
@@ -60,32 +65,32 @@
             outline: none;
         }
 
-        /* 🎪 REKLAMA BANNERI (SLIDER / CAROUSEL) */
-        .hero {
+        /* 🎪 REKLAMA BANNERI (O'NGDAN CHAPGA SIRG'ALUVCHI SLIDER) */
+        .hero-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
             background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
+            border-bottom: 4px solid var(--accent-color);
+        }
+        .slider-container {
+            display: flex;
+            width: 300%; /* 3 ta reklama yonma-yon turishi uchun */
+            transition: transform 0.8s cubic-bezier(0.45, 1, 0.2, 1); /* Chapga silliq surilish effekti */
+        }
+        .slide {
+            width: 100vw; /* Har bir reklama to'liq ekran kengligida bo'ladi */
+            box-sizing: border-box;
             color: white;
             text-align: center;
-            padding: 40px 20px;
-            height: 140px;
+            padding: 50px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-bottom: 4px solid var(--accent-color);
-        }
-        .slide {
-            display: none;
-            width: 100%;
-            max-width: 800px;
-            animation: fadeEffect 0.8s ease-in-out;
         }
         .slide h1 { font-size: 36px; margin: 0 0 12px 0; font-weight: bold; }
         .slide p { font-size: 18px; color: #f1c40f; margin: 0; font-weight: 500; }
-        
-        @keyframes fadeEffect {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
 
         /* Kitoblar bo'limi */
         .section-title {
@@ -128,14 +133,7 @@
             font-size: 20px;
         }
         .book-title { font-size: 20px; margin: 10px 0; font-weight: bold; }
-        
-        /* Kitob Narxi */
-        .book-price {
-            color: #27ae60;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 15px;
-        }
+        .book-price { color: #27ae60; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
 
         .book-btn {
             display: inline-block;
@@ -151,53 +149,30 @@
         .book-btn:hover { background-color: var(--accent-color); }
 
         /* To'lov tizimlari bo'limi */
-        .payment-section {
-            margin-top: 50px;
-            text-align: center;
-        }
+        .payment-section { margin-top: 50px; text-align: center; }
         .payment-grid {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            padding: 0 20px;
+            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; padding: 0 20px;
         }
         .payment-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            width: 200px;
-            padding: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background: white; border: 1px solid #e0e0e0; border-radius: 8px; width: 200px; padding: 20px;
+            font-size: 22px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+            display: flex; align-items: center; justify-content: center;
         }
         .click-card { color: #5e257c; }
         .payme-card { color: #00bfa5; }
         .uzum-card { color: #7000ff; }
 
-        /* Footer */
-        footer {
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            margin-top: 50px;
-            font-size: 14px;
-        }
+        footer { background-color: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: 50px; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div class="marquee-container">
-            <div class="logo-marquee">My Vocabulary</div>
+        <div style="width: 60px;"></div> <div class="marquee-zone">
+            <div class="logo-marquee">My Vocabularies</div>
         </div>
-        <div>
+        
+        <div class="lang-box">
             <select class="lang-select" onchange="changeLanguage(this.value)">
                 <option value="uz">O'zbekcha</option>
                 <option value="en">English</option>
@@ -205,18 +180,20 @@
         </div>
     </div>
 
-    <div class="hero">
-        <div class="slide">
-            <h1 data-key="hero-title-1">⚡ CLICK orqali oson va xavfsiz to'lov!</h1>
-            <p data-key="hero-desc-1">Kutubxonamizdan istalgan kitobni sotib oling va 10% keshbekka ega bo'ling.</p>
-        </div>
-        <div class="slide">
-            <h1 data-key="hero-title-2">💸 PAYME bilan 0% komissiya!</h1>
-            <p data-key="hero-desc-2">Aksiya doirasida darsliklarimizni ortiqcha foizlarsiz, bir zumda faollashtiring.</p>
-        </div>
-        <div class="slide">
-            <h1 data-key="hero-title-3">🎉 Intellektual o'yinlar olamiga xush kelibsiz!</h1>
-            <p data-key="hero-desc-3">Anagram, Match Up va Spin o'yinlarini o'ynang, bilimingizni eng yuqori darajaga olib chiqing.</p>
+    <div class="hero-wrapper">
+        <div class="slider-container" id="sliderContainer">
+            <div class="slide">
+                <h1 data-key="hero-title-1">⚡ CLICK orqali oson va xavfsiz to'lov!</h1>
+                <p data-key="hero-desc-1">Kutubxonamizdan istalgan kitobni sotib oling va 10% keshbekka ega bo'ling.</p>
+            </div>
+            <div class="slide">
+                <h1 data-key="hero-title-2">💸 PAYME bilan 0% komissiya!</h1>
+                <p data-key="hero-desc-2">Aksiya doirasida darsliklarimizni ortiqcha foizlarsiz, bir zumda faollashtiring.</p>
+            </div>
+            <div class="slide">
+                <h1 data-key="hero-title-3">🎉 Intellektual o'yinlar olamiga xush kelibsiz!</h1>
+                <p data-key="hero-desc-3">Anagram, Match Up va Spin o'yinlarini o'ynang, bilimingizni eng yuqori darajaga olib chiqing.</p>
+            </div>
         </div>
     </div>
 
@@ -259,7 +236,6 @@
     </footer>
 
     <script>
-        // TILLAR LUG'ATI
         const translations = {
             uz: {
                 "hero-title-1": "⚡ CLICK orqali oson va xavfsiz to'lov!",
@@ -293,10 +269,7 @@
             }
         };
 
-        // TILNI ALMASHTIRISH FUNKSIYASI
-        let currentLang = 'uz';
         function changeLanguage(lang) {
-            currentLang = lang;
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-key');
@@ -307,25 +280,27 @@
             localStorage.setItem('selectedLang', lang);
         }
 
-        // REKLAMA ALMASHTIRISH MANTIQI (AUTOMATIC SLIDER)
-        let slideIndex = 0;
-        function showSlides() {
-            let slides = document.getElementsByClassName("slide");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";  
+        // 🎪 O'NGDAN CHAPGA SURILUVCHI REKLAMA SLIDERI (12 SONIYA KUTISH)
+        let currentSlide = 0;
+        const totalSlides = 3;
+        const sliderContainer = document.getElementById("sliderContainer");
+
+        function rotateSlides() {
+            currentSlide++;
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0; // 3-reklamadan so'ng yana 1-siga qaytadi
             }
-            slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }    
-            slides[slideIndex-1].style.display = "block";  
-            setTimeout(showSlides, 4000); // Har 4 soniyada reklama almashadi
+            // Konteynerni chap tomonga reklamaning eni miqdorida majburlab suramiz
+            sliderContainer.style.transform = `translateX(-${currentSlide * 100}vw)`;
         }
 
-        // SAHIFA YUKLANGANDA ISHGA TUSHADIGAN FUNKSIYALAR
+        // Reklama har 13 soniyada almashadi (12 soniya to'xtab turadi + 1 soniya surilish vaqti)
+        setInterval(rotateSlides, 13000);
+
         window.onload = function() {
             const savedLang = localStorage.getItem('selectedLang') || 'uz';
             document.querySelector('.lang-select').value = savedLang;
             changeLanguage(savedLang);
-            showSlides(); // Reklama slayderini yoqish
         }
     </script>
 </body>
