@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Vocabularies Portal</title>
+    <!-- Telegram WebApp uchun skript -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
             --primary-color: #0b1d33;
@@ -26,15 +28,11 @@
             align-items: center;
             padding: 15px 30px;
         }
-
-        /* 🎯 MARKAZLASHTIRILGAN VA CHEGARALANGAN YUGURUVCHI MATN HUDUDI */
         .marquee-zone {
-            width: 50%; /* Ekranning qoq markazidan 50% joy ajratadi */
-            margin: 0 auto; /* Chap va o'ng tomondan bir xil teng joy qoldiradi */
+            width: 50%;
+            margin: 0 auto;
             overflow: hidden;
             white-space: nowrap;
-            border-left: 2px dashed rgba(255,255,255,0.2); /* Vizual chegara (ixtiyoriy) */
-            border-right: 2px dashed rgba(255,255,255,0.2);
         }
         .logo-marquee { 
             font-size: 38px;
@@ -45,134 +43,59 @@
             letter-spacing: 2px;
             animation: runInsideZone 8s linear infinite;
         }
-        /* Faqat belgilangan hudud ichida harakatlanish animatsiyasi */
         @keyframes runInsideZone {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
-        
-        .lang-box {
-            flex-shrink: 0;
-        }
         .lang-select {
-            background: #2c3e50;
-            color: white;
-            border: 1px solid #444;
-            padding: 8px 12px;
-            font-size: 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            outline: none;
+            background: #2c3e50; color: white; border: 1px solid #444;
+            padding: 8px 12px; font-size: 14px; border-radius: 4px; cursor: pointer;
         }
 
-        /* 🎪 REKLAMA BANNERI (O'NGDAN CHAPGA SIRG'ALUVCHI SLIDER) */
-        .hero-wrapper {
-            width: 100%;
-            overflow: hidden;
-            position: relative;
-            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
-            border-bottom: 4px solid var(--accent-color);
-        }
-        .slider-container {
-            display: flex;
-            width: 300%; /* 3 ta reklama yonma-yon turishi uchun */
-            transition: transform 0.8s cubic-bezier(0.45, 1, 0.2, 1); /* Chapga silliq surilish effekti */
-        }
-        .slide {
-            width: 100vw; /* Har bir reklama to'liq ekran kengligida bo'ladi */
-            box-sizing: border-box;
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .slide h1 { font-size: 36px; margin: 0 0 12px 0; font-weight: bold; }
-        .slide p { font-size: 18px; color: #f1c40f; margin: 0; font-weight: 500; }
+        /* Reklama Slider */
+        .hero-wrapper { width: 100%; overflow: hidden; position: relative; background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover; border-bottom: 4px solid var(--accent-color); }
+        .slider-container { display: flex; width: 300%; transition: transform 0.8s cubic-bezier(0.45, 1, 0.2, 1); }
+        .slide { width: 100vw; box-sizing: border-box; color: white; text-align: center; padding: 50px 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .slide h1 { font-size: 36px; margin: 0 0 12px 0; }
+        .slide p { font-size: 18px; color: #f1c40f; margin: 0; }
 
-        /* Kitoblar bo'limi */
-        .section-title {
-            text-align: center;
-            margin: 40px 0 20px 0;
-            font-size: 24px;
-            letter-spacing: 2px;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            font-weight: bold;
+        /* Foydalanuvchi paneli info */
+        .user-badge {
+            text-align: center; margin: 15px 0; font-weight: bold; color: #2c3e50; font-size: 14px;
         }
-        .books-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            padding: 0 20px;
-        }
-        .book-card {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            width: 250px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .book-img {
-            width: 150px;
-            height: 220px;
-            background-color: #34495e;
-            margin: 0 auto 15px auto;
-            border-radius: 4px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-            font-size: 20px;
-        }
+
+        /* Kitoblar */
+        .section-title { text-align: center; margin: 30px 0 20px 0; font-size: 24px; letter-spacing: 2px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; }
+        .books-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; padding: 0 20px; }
+        .book-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; width: 250px; padding: 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.05); position: relative;}
+        
+        /* Qulflangan kitob ko'rinishi */
+        .book-card.locked .book-img { filter: blur(2px) grayscale(100%); }
+        .lock-icon { display: none; position: absolute; top: 110px; left: 50%; transform: translate(-50%, -50%); font-size: 40px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 50%; width: 40px; height: 40px; line-height: 40px; }
+        .book-card.locked .lock-icon { display: block; }
+
+        .book-img { width: 150px; height: 220px; margin: 0 auto 15px auto; border-radius: 4px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 20px; }
         .book-title { font-size: 20px; margin: 10px 0; font-weight: bold; }
         .book-price { color: #27ae60; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+        .book-btn { display: inline-block; background-color: var(--primary-color); color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold; width: 80%; }
 
-        .book-btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: 0.2s;
-            width: 80%;
-        }
-        .book-btn:hover { background-color: var(--accent-color); }
-
-        /* To'lov tizimlari bo'limi */
+        /* To'lov tizimlari */
         .payment-section { margin-top: 50px; text-align: center; }
-        .payment-grid {
-            display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; padding: 0 20px;
-        }
-        .payment-card {
-            background: white; border: 1px solid #e0e0e0; border-radius: 8px; width: 200px; padding: 20px;
-            font-size: 22px; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .click-card { color: #5e257c; }
-        .payme-card { color: #00bfa5; }
-        .uzum-card { color: #7000ff; }
-
-        footer { background-color: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: 50px; font-size: 14px; }
+        .payment-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 20px; padding: 0 20px; }
+        .payment-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; width: 200px; padding: 20px; font-size: 22px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+        .click-card { color: #5e257c; } .payme-card { color: #00bfa5; } .uzum-card { color: #7000ff; }
+        footer { background-color: var(--primary-color); color: white; text-align: center; padding: 20px; margin-top: 50px; }
     </style>
 </head>
 <body>
 
+    <!-- NAVBAR -->
     <div class="navbar">
-        <div style="width: 60px;"></div> <div class="marquee-zone">
+        <div style="width: 60px;"></div>
+        <div class="marquee-zone">
             <div class="logo-marquee">My Vocabularies</div>
         </div>
-        
-        <div class="lang-box">
+        <div>
             <select class="lang-select" onchange="changeLanguage(this.value)">
                 <option value="uz">O'zbekcha</option>
                 <option value="en">English</option>
@@ -180,6 +103,7 @@
         </div>
     </div>
 
+    <!-- HERO REKLAMA BANNERI -->
     <div class="hero-wrapper">
         <div class="slider-container" id="sliderContainer">
             <div class="slide">
@@ -197,37 +121,38 @@
         </div>
     </div>
 
+    <!-- FOYDALANUVCHI MA'LUMOTLARI PANELi -->
+    <div class="user-badge" id="userInfo">Sizning Telegram ID: Aniqlanmoqda...</div>
+
+    <!-- KITOBLAR SEKSIYASI -->
     <div class="section-title" data-key="section-title">— Kitoblar Ro'yxati —</div>
     
     <div class="books-grid">
-        <div class="book-card">
+        <!-- 1-Kitob (Pullik/Qulflanishi mumkin) -->
+        <div class="book-card locked" id="book1">
+            <div class="lock-icon">🔒</div>
             <div class="book-img" style="background-color: #0f5132; border: 2px solid #dfb15b;">O'TGAN KUNLAR</div>
             <div class="book-title">O'tkan Kunlar</div>
             <div class="book-price" data-key="price-1">💰 45,000 so'm</div>
-            <a href="essential-words/index.html" class="book-btn" data-key="btn-open">Batafsil o'qish ➔</a>
+            <a href="#" id="btnBook1" class="book-btn" data-key="btn-open">Sotib olish / Ochish</a>
         </div>
 
-        <div class="book-card">
+        <!-- 2-Kitob (Pullik/Qulflanishi mumkin) -->
+        <div class="book-card locked" id="book2">
+            <div class="lock-icon">🔒</div>
             <div class="book-img" style="background-color: #d9a05b;">ALKIMYOGAR</div>
             <div class="book-title">Alkimyogar</div>
             <div class="book-price" data-key="price-2">💰 38,000 so'm</div>
-            <a href="solutions-book/index.html" class="book-btn" data-key="btn-open">Batafsil o'qish ➔</a>
-        </div>
-
-        <div class="book-card">
-            <div class="book-img" style="background-color: #f3f3f3; color: #333;">STIV JOBS</div>
-            <div class="book-title">Stiv Jobs</div>
-            <div class="book-price" data-key="price-3">💰 55,000 so'm</div>
-            <a href="1000-words/index.html" class="book-btn" data-key="btn-open">Batafsil o'qish ➔</a>
+            <a href="#" id="btnBook2" class="book-btn" data-key="btn-open">Sotib olish / Ochish</a>
         </div>
     </div>
 
+    <!-- TO'LOV TIZIMLARI -->
     <div class="payment-section">
         <div class="section-title" data-key="payment-title">— Xavfsiz To'lov Tizimlari —</div>
         <div class="payment-grid">
             <div class="payment-card click-card">▶ CLICK</div>
             <div class="payment-card payme-card">⚡ PAYME</div>
-            <div class="payment-card uzum-card">🍇 UZUM BANK</div>
         </div>
     </div>
 
@@ -236,71 +161,73 @@
     </footer>
 
     <script>
-        const translations = {
-            uz: {
-                "hero-title-1": "⚡ CLICK orqali oson va xavfsiz to'lov!",
-                "hero-desc-1": "Kutubxonamizdan istalgan kitobni sotib oling va 10% keshbekka ega bo'ling.",
-                "hero-title-2": "💸 PAYME bilan 0% komissiya!",
-                "hero-desc-2": "Aksiya doirasida darsliklarimizni ortiqcha foizlarsiz, bir zumda faollashtiring.",
-                "hero-title-3": "🎉 Intellektual o'yinlar olamiga xush kelibsiz!",
-                "hero-desc-3": "Anagram, Match Up va Spin o'yinlarini o'ynang, bilimingizni eng yuqori darajaga olib chiqing.",
-                "section-title": "— Kitoblar Ro'yxati —",
-                "price-1": "💰 45,000 so'm",
-                "price-2": "💰 38,000 so'm",
-                "price-3": "💰 55,000 so'm",
-                "btn-open": "Batafsil o'qish ➔",
-                "payment-title": "— Xavfsiz To'lov Tizimlari —",
-                "footer-text": "© 2026 KitobUz onlayn do'koni. Barcha huquqlar himoyalangan."
-            },
-            en: {
-                "hero-title-1": "⚡ Easy & Secure Payment via CLICK!",
-                "hero-desc-1": "Buy any book from our library and get a 10% cashback bonus instantly.",
-                "hero-title-2": "💸 0% Commission with PAYME!",
-                "hero-desc-2": "Activate your premium textbooks during the promotion without extra fees.",
-                "hero-title-3": "🎉 Welcome to the World of Educational Games!",
-                "hero-desc-3": "Play Anagram, Match Up, and Spin to skyrocket your vocabulary level.",
-                "section-title": "— BOOKS LIST —",
-                "price-1": "💰 45,000 UZS",
-                "price-2": "💰 38,000 UZS",
-                "price-3": "💰 55,000 UZS",
-                "btn-open": "Read More ➔",
-                "payment-title": "— SECURE PAYMENT SYSTEMS —",
-                "footer-text": "© 2026 KitobUz Online Store. All rights reserved."
-            }
-        };
+        // 📋 TO'LOV QILGAN FOYDALANUVCHILARNING TELEGRAM ID RO'YXATI (BAZA)
+        // Pul to'lagan odamlarning Telegram ID raqamlarini shu yerga vergul bilan qo'shib qo'yasiz
+        const premiumUsers = [
+            123456789,  // 1-Foydalanuvchi IDsi (Namuna)
+            987654321,  // 2-Foydalanuvchi IDsi (Namuna)
+            512345678   // O'zingizning Telegram ID raqamingizni ham sinash uchun qo'shing
+        ];
 
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll('[data-key]');
-            elements.forEach(element => {
-                const key = element.getAttribute('data-key');
-                if (translations[lang][key]) {
-                    element.innerText = translations[lang][key];
-                }
-            });
-            localStorage.setItem('selectedLang', lang);
+        // Telegram WebApp yuklanishi
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Oynani to'liq ekranga ochish
+
+        // Kirgan odamning Telegram ma'lumotlarini olish
+        const telegramUser = tg.initDataUnsafe?.user;
+        const userInfoBlock = document.getElementById("userInfo");
+
+        if (telegramUser) {
+            const userId = telegramUser.id;
+            const firstName = telegramUser.first_name;
+            
+            // Ekrandagi ma'lumotni yangilaymiz
+            userInfoBlock.innerText = `Foydalanuvchi: ${firstName} (ID: ${userId})`;
+
+            // 🔐 TO'LOV QILGANLIKNI TEKSHIRISH
+            if (premiumUsers.includes(userId)) {
+                // Agar foydalanuvchi IDsi ro'yxatda bo'lsa - hamma kitoblarni ochamiz
+                document.getElementById("book1").classList.remove("locked");
+                document.getElementById("book2").classList.remove("locked");
+                
+                // Tugmalarni havolasini to'g'rilaymiz
+                document.getElementById("btnBook1").href = "essential-words/index.html";
+                document.getElementById("btnBook1").innerText = "O'qishni boshlash ➔";
+                
+                document.getElementById("btnBook2").href = "solutions-book/index.html";
+                document.getElementById("btnBook2").innerText = "O'qishni boshlash ➔";
+            } else {
+                // Agar to'lov qilmagan bo'lsa, bosganda botga qaytarib xabar yuborishi mumkin
+                const buyAction = function(e) {
+                    e.preventDefault();
+                    tg.sendData("Sotib olmoqchiman"); // Botga xabar yuboradi
+                    alert("Siz hali to'lov qilmadingiz. Botga qaytib to'lovni bajaring!");
+                    tg.close(); // WebAppni yopadi
+                };
+                document.getElementById("btnBook1").addEventListener("click", buyAction);
+                document.getElementById("btnBook2").addEventListener("click", buyAction);
+            }
+        } else {
+            userInfoBlock.innerText = "Foydalanuvchi: Brauzerdan kirildi (Faqat Telegram bot ichida ishlaydi)";
         }
 
-        // 🎪 O'NGDAN CHAPGA SURILUVCHI REKLAMA SLIDERI (12 SONIYA KUTISH)
+        // --- QOLGAN STANDART FUNKSIYALAR (SLIDER & LANG) ---
         let currentSlide = 0;
-        const totalSlides = 3;
         const sliderContainer = document.getElementById("sliderContainer");
-
-        function rotateSlides() {
-            currentSlide++;
-            if (currentSlide >= totalSlides) {
-                currentSlide = 0; // 3-reklamadan so'ng yana 1-siga qaytadi
-            }
-            // Konteynerni chap tomonga reklamaning eni miqdorida majburlab suramiz
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 3;
             sliderContainer.style.transform = `translateX(-${currentSlide * 100}vw)`;
-        }
+        }, 13000);
 
-        // Reklama har 13 soniyada almashadi (12 soniya to'xtab turadi + 1 soniya surilish vaqti)
-        setInterval(rotateSlides, 13000);
-
-        window.onload = function() {
-            const savedLang = localStorage.getItem('selectedLang') || 'uz';
-            document.querySelector('.lang-select').value = savedLang;
-            changeLanguage(savedLang);
+        const translations = {
+            uz: { "section-title": "— Kitoblar Ro'yxati —", "payment-title": "— Xavfsiz To'lov Tizimlari —", "footer-text": "© 2026 KitobUz." },
+            en: { "section-title": "— BOOKS LIST —", "payment-title": "— SECURE PAYMENTS —", "footer-text": "© 2026 KitobUz." }
+        };
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
+            });
         }
     </script>
 </body>
