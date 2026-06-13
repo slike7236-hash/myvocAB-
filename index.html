@@ -30,6 +30,8 @@
             padding: 10px 15px;
             height: 60px;
             box-sizing: border-box;
+            position: relative;
+            z-index: 10;
         }
         .marquee-zone { width: 55%; overflow: hidden; white-space: nowrap; }
         .logo-marquee { 
@@ -49,6 +51,7 @@
             width: 100%; overflow: hidden; position: relative;
             background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80&w=1000') no-repeat center center/cover;
             border-bottom: 3px solid var(--accent-color);
+            z-index: 1;
         }
         .slider-container { display: flex; width: 300%; transition: transform 0.8s ease-in-out; }
         .slide { width: 100vw; box-sizing: border-box; color: white; text-align: center; padding: 25px 15px; min-height: 110px; display: flex; flex-direction: column; justify-content: center; flex-shrink: 0; }
@@ -59,7 +62,7 @@
         .user-badge { text-align: center; margin: 0; font-weight: bold; color: #2c3e50; font-size: 12px; background: #fff; padding: 8px; border-bottom: 1px solid #ddd; }
         .section-title { text-align: center; margin: 20px 0 10px 0; font-size: 16px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; }
 
-        /* 📚 30 TA KITOB UCHUN MUKAMMAL KARUSEL TIZIMI */
+        /* 📚 KITOBLAR KARUSELI */
         .carousel-wrapper {
             position: relative;
             width: 100%;
@@ -67,6 +70,7 @@
             margin: 0 auto;
             overflow: hidden;
             padding: 10px 0;
+            z-index: 5;
         }
         .books-slider {
             display: flex;
@@ -78,14 +82,14 @@
             width: 280px; padding: 15px; margin: 0 20px;
             text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.05); box-sizing: border-box;
             flex-shrink: 0;
+            position: relative;
+            z-index: 6;
         }
         
-        /* 👁️ YASHIRIN KITOB KLASSI (MUTLAQO KO'RINMAYDI) */
         .hidden-book {
             display: none !important;
         }
 
-        /* KITOB MUQOVASI STILI (GITHUB RASMLARI UCHUN OLCHAM) */
         .book-img { 
             width: 120px; height: 170px; margin: 0 auto 10px auto; 
             display: block; border-radius: 4px; 
@@ -95,12 +99,14 @@
         .book-title { font-size: 14px; margin: 5px 0; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center; }
         .book-price { color: #27ae60; font-weight: bold; font-size: 15px; margin-bottom: 10px; }
         
-        /* TUGMALAR */
+        /* TUGMA STILI (Z-INDEX BOSILISHI UCHUN) */
         .book-btn { 
             display: inline-block; color: white; padding: 10px; 
             text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; font-size: 13px;
             box-sizing: border-box; border: none; cursor: pointer; transition: 0.2s;
             text-align: center;
+            position: relative;
+            z-index: 10;
         }
         .book-btn:active { transform: scale(0.97); }
 
@@ -108,7 +114,7 @@
             position: absolute; top: 50%; transform: translateY(-50%);
             background: rgba(11, 29, 51, 0.85); color: white; border: none;
             width: 36px; height: 36px; border-radius: 50%; font-size: 14px;
-            font-weight: bold; cursor: pointer; z-index: 5; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; cursor: pointer; z-index: 8; display: flex; align-items: center; justify-content: center;
         }
         .nav-btn:active { background: var(--accent-color); }
         .nav-btn.prev { left: 2px; }
@@ -121,6 +127,7 @@
             flex: 1; padding: 10px 2px; font-size: 13px; font-weight: bold; 
             text-align: center; cursor: pointer; box-sizing: border-box;
             display: flex; flex-direction: column; align-items: center; gap: 5px; transition: 0.2s;
+            position: relative; z-index: 10;
         }
         .payment-card:active { transform: scale(0.95); }
         .payment-card i { font-size: 18px; }
@@ -196,56 +203,56 @@
                 <img src="ess1.jpg" class="book-img" alt="Book 1">
                 <div class="book-title">Essential English Words 1</div>
                 <div class="book-price" id="p-price-1">💰 25,000 so'm</div>
-                <a href="#" class="book-btn" id="btn-read-1">Yuklanmoqda...</a>
+                <button class="book-btn" id="btn-read-1">...</button>
             </div>
 
             <div class="book-card">
                 <img src="ess2.jpg" class="book-img" alt="Book 2">
                 <div class="book-title">Essential English Words 2</div>
                 <div class="book-price" id="p-price-2">💰 25,000 so'm</div>
-                <a href="#" class="book-btn" id="btn-read-2">Yuklanmoqda...</a>
+                <button class="book-btn" id="btn-read-2">...</button>
             </div>
 
             <div class="book-card">
                 <img src="ess3.jpg" class="book-img" alt="Book 3">
                 <div class="book-title">Essential English Words 3</div>
                 <div class="book-price" id="p-price-3">💰 25,000 so'm</div>
-                <a href="#" class="book-btn" id="btn-read-3">Yuklanmoqda...</a>
+                <button class="book-btn" id="btn-read-3">...</button>
             </div>
 
             <div class="book-card">
                 <img src="ess4.jpg" class="book-img" alt="Book 4">
                 <div class="book-title">Essential English Words 4</div>
                 <div class="book-price" id="p-price-4">💰 25,000 so'm</div>
-                <a href="#" class="book-btn" id="btn-read-4">Yuklanmoqda...</a>
+                <button class="book-btn" id="btn-read-4">...</button>
             </div>
 
-            <div class="book-card hidden-book" id="card-5"><div class="book-title">Yopiq Kitob 5</div><div class="book-price" id="p-price-5">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-5">...</a></div>
-            <div class="book-card hidden-book" id="card-6"><div class="book-title">Yopiq Kitob 6</div><div class="book-price" id="p-price-6">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-6">...</a></div>
-            <div class="book-card hidden-book" id="card-7"><div class="book-title">Yopiq Kitob 7</div><div class="book-price" id="p-price-7">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-7">...</a></div>
-            <div class="book-card hidden-book" id="card-8"><div class="book-title">Yopiq Kitob 8</div><div class="book-price" id="p-price-8">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-8">...</a></div>
-            <div class="book-card hidden-book" id="card-9"><div class="book-title">Yopiq Kitob 9</div><div class="book-price" id="p-price-9">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-9">...</a></div>
-            <div class="book-card hidden-book" id="card-10"><div class="book-title">Yopiq Kitob 10</div><div class="book-price" id="p-price-10">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-10">...</a></div>
-            <div class="book-card hidden-book" id="card-11"><div class="book-title">Yopiq Kitob 11</div><div class="book-price" id="p-price-11">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-11">...</a></div>
-            <div class="book-card hidden-book" id="card-12"><div class="book-title">Yopiq Kitob 12</div><div class="book-price" id="p-price-12">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-12">...</a></div>
-            <div class="book-card hidden-book" id="card-13"><div class="book-title">Yopiq Kitob 13</div><div class="book-price" id="p-price-13">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-13">...</a></div>
-            <div class="book-card hidden-book" id="card-14"><div class="book-title">Yopiq Kitob 14</div><div class="book-price" id="p-price-14">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-14">...</a></div>
-            <div class="book-card hidden-book" id="card-15"><div class="book-title">Yopiq Kitob 15</div><div class="book-price" id="p-price-15">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-15">...</a></div>
-            <div class="book-card hidden-book" id="card-16"><div class="book-title">Yopiq Kitob 16</div><div class="book-price" id="p-price-16">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-16">...</a></div>
-            <div class="book-card hidden-book" id="card-17"><div class="book-title">Yopiq Kitob 17</div><div class="book-price" id="p-price-17">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-17">...</a></div>
-            <div class="book-card hidden-book" id="card-18"><div class="book-title">Yopiq Kitob 18</div><div class="book-price" id="p-price-18">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-18">...</a></div>
-            <div class="book-card hidden-book" id="card-19"><div class="book-title">Yopiq Kitob 19</div><div class="book-price" id="p-price-19">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-19">...</a></div>
-            <div class="book-card hidden-book" id="card-20"><div class="book-title">Yopiq Kitob 20</div><div class="book-price" id="p-price-20">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-20">...</a></div>
-            <div class="book-card hidden-book" id="card-21"><div class="book-title">Yopiq Kitob 21</div><div class="book-price" id="p-price-21">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-21">...</a></div>
-            <div class="book-card hidden-book" id="card-22"><div class="book-title">Yopiq Kitob 22</div><div class="book-price" id="p-price-22">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-22">...</a></div>
-            <div class="book-card hidden-book" id="card-23"><div class="book-title">Yopiq Kitob 23</div><div class="book-price" id="p-price-23">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-23">...</a></div>
-            <div class="book-card hidden-book" id="card-24"><div class="book-title">Yopiq Kitob 24</div><div class="book-price" id="p-price-24">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-24">...</a></div>
-            <div class="book-card hidden-book" id="card-25"><div class="book-title">Yopiq Kitob 25</div><div class="book-price" id="p-price-25">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-25">...</a></div>
-            <div class="book-card hidden-book" id="card-26"><div class="book-title">Yopiq Kitob 26</div><div class="book-price" id="p-price-26">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-26">...</a></div>
-            <div class="book-card hidden-book" id="card-27"><div class="book-title">Yopiq Kitob 27</div><div class="book-price" id="p-price-27">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-27">...</a></div>
-            <div class="book-card hidden-book" id="card-28"><div class="book-title">Yopiq Kitob 28</div><div class="book-price" id="p-price-28">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-28">...</a></div>
-            <div class="book-card hidden-book" id="card-29"><div class="book-title">Yopiq Kitob 29</div><div class="book-price" id="p-price-29">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-29">...</a></div>
-            <div class="book-card hidden-book" id="card-30"><div class="book-title">Yopiq Kitob 30</div><div class="book-price" id="p-price-30">💰 25,000 so'm</div><a href="#" class="book-btn" id="btn-read-30">...</a></div>
+            <div class="book-card hidden-book" id="card-5"><div class="book-title">Yopiq Kitob 5</div><div class="book-price" id="p-price-5">💰 25,000 so'm</div><button class="book-btn" id="btn-read-5">...</button></div>
+            <div class="book-card hidden-book" id="card-6"><div class="book-title">Yopiq Kitob 6</div><div class="book-price" id="p-price-6">💰 25,000 so'm</div><button class="book-btn" id="btn-read-6">...</button></div>
+            <div class="book-card hidden-book" id="card-7"><div class="book-title">Yopiq Kitob 7</div><div class="book-price" id="p-price-7">💰 25,000 so'm</div><button class="book-btn" id="btn-read-7">...</button></div>
+            <div class="book-card hidden-book" id="card-8"><div class="book-title">Yopiq Kitob 8</div><div class="book-price" id="p-price-8">💰 25,000 so'm</div><button class="book-btn" id="btn-read-8">...</button></div>
+            <div class="book-card hidden-book" id="card-9"><div class="book-title">Yopiq Kitob 9</div><div class="book-price" id="p-price-9">💰 25,000 so'm</div><button class="book-btn" id="btn-read-9">...</button></div>
+            <div class="book-card hidden-book" id="card-10"><div class="book-title">Yopiq Kitob 10</div><div class="book-price" id="p-price-10">💰 25,000 so'm</div><button class="book-btn" id="btn-read-10">...</button></div>
+            <div class="book-card hidden-book" id="card-11"><div class="book-title">Yopiq Kitob 11</div><div class="book-price" id="p-price-11">💰 25,000 so'm</div><button class="book-btn" id="btn-read-11">...</button></div>
+            <div class="book-card hidden-book" id="card-12"><div class="book-title">Yopiq Kitob 12</div><div class="book-price" id="p-price-12">💰 25,000 so'm</div><button class="book-btn" id="btn-read-12">...</button></div>
+            <div class="book-card hidden-book" id="card-13"><div class="book-title">Yopiq Kitob 13</div><div class="book-price" id="p-price-13">💰 25,000 so'm</div><button class="book-btn" id="btn-read-13">...</button></div>
+            <div class="book-card hidden-book" id="card-14"><div class="book-title">Yopiq Kitob 14</div><div class="book-price" id="p-price-14">💰 25,000 so'm</div><button class="book-btn" id="btn-read-14">...</button></div>
+            <div class="book-card hidden-book" id="card-15"><div class="book-title">Yopiq Kitob 15</div><div class="book-price" id="p-price-15">💰 25,000 so'm</div><button class="book-btn" id="btn-read-15">...</button></div>
+            <div class="book-card hidden-book" id="card-16"><div class="book-title">Yopiq Kitob 16</div><div class="book-price" id="p-price-16">💰 25,000 so'm</div><button class="book-btn" id="btn-read-16">...</button></div>
+            <div class="book-card hidden-book" id="card-17"><div class="book-title">Yopiq Kitob 17</div><div class="book-price" id="p-price-17">💰 25,000 so'm</div><button class="book-btn" id="btn-read-17">...</button></div>
+            <div class="book-card hidden-book" id="card-18"><div class="book-title">Yopiq Kitob 18</div><div class="book-price" id="p-price-18">💰 25,000 so'm</div><button class="book-btn" id="btn-read-18">...</button></div>
+            <div class="book-card hidden-book" id="card-19"><div class="book-title">Yopiq Kitob 19</div><div class="book-price" id="p-price-19">💰 25,000 so'm</div><button class="book-btn" id="btn-read-19">...</button></div>
+            <div class="book-card hidden-book" id="card-20"><div class="book-title">Yopiq Kitob 20</div><div class="book-price" id="p-price-20">💰 25,000 so'm</div><button class="book-btn" id="btn-read-20">...</button></div>
+            <div class="book-card hidden-book" id="card-21"><div class="book-title">Yopiq Kitob 21</div><div class="book-price" id="p-price-21">💰 25,000 so'm</div><button class="book-btn" id="btn-read-21">...</button></div>
+            <div class="book-card hidden-book" id="card-22"><div class="book-title">Yopiq Kitob 22</div><div class="book-price" id="p-price-22">💰 25,000 so'm</div><button class="book-btn" id="btn-read-22">...</button></div>
+            <div class="book-card hidden-book" id="card-23"><div class="book-title">Yopiq Kitob 23</div><div class="book-price" id="p-price-23">💰 25,000 so'm</div><button class="book-btn" id="btn-read-23">...</button></div>
+            <div class="book-card hidden-book" id="card-24"><div class="book-title">Yopiq Kitob 24</div><div class="book-price" id="p-price-24">💰 25,000 so'm</div><button class="book-btn" id="btn-read-24">...</button></div>
+            <div class="book-card hidden-book" id="card-25"><div class="book-title">Yopiq Kitob 25</div><div class="book-price" id="p-price-25">💰 25,000 so'm</div><button class="book-btn" id="btn-read-25">...</button></div>
+            <div class="book-card hidden-book" id="card-26"><div class="book-title">Yopiq Kitob 26</div><div class="book-price" id="p-price-26">💰 25,000 so'm</div><button class="book-btn" id="btn-read-26">...</button></div>
+            <div class="book-card hidden-book" id="card-27"><div class="book-title">Yopiq Kitob 27</div><div class="book-price" id="p-price-27">💰 25,000 so'm</div><button class="book-btn" id="btn-read-27">...</button></div>
+            <div class="book-card hidden-book" id="card-28"><div class="book-title">Yopiq Kitob 28</div><div class="book-price" id="p-price-28">💰 25,000 so'm</div><button class="book-btn" id="btn-read-28">...</button></div>
+            <div class="book-card hidden-book" id="card-29"><div class="book-title">Yopiq Kitob 29</div><div class="book-price" id="p-price-29">💰 25,000 so'm</div><button class="book-btn" id="btn-read-29">...</button></div>
+            <div class="book-card hidden-book" id="card-30"><div class="book-title">Yopiq Kitob 30</div><div class="book-price" id="p-price-30">💰 25,000 so'm</div><button class="book-btn" id="btn-read-30">...</button></div>
 
         </div>
         <button class="nav-btn next" onclick="moveBooks(1)"><i class="fa-solid fa-angle-right"></i></button>
@@ -254,13 +261,13 @@
     <div class="payment-section">
         <div class="section-title" id="pay-title">— TO'LOV TIZIMLARI —</div>
         <div class="payment-grid">
-            <div class="payment-card click-btn" onclick="openModal('CLICK Tizimi', 'Click orqali xavfsiz o\'tkazma.', 'https://click.uz')">
+            <div class="payment-card click-btn" onclick="openPaymentModal('CLICK Tizimi', 'Click orqali xavfsiz o\'tkazma.', 'https://click.uz')">
                 <i class="fa-solid fa-credit-card"></i> CLICK
             </div>
-            <div class="payment-card payme-btn" onclick="openModal('PAYME Tizimi', 'Payme orqali 0% komissiya.', 'https://payme.uz')">
+            <div class="payment-card payme-btn" onclick="openPaymentModal('PAYME Tizimi', 'Payme orqali 0% komissiya.', 'https://payme.uz')">
                 <i class="fa-solid fa-bolt"></i> PAYME
             </div>
-            <div class="payment-card visa-btn" onclick="openModal('VISA Card', 'Xalqaro bank kartalari tizimi.', 'https://visa.com')">
+            <div class="payment-card visa-btn" onclick="openPaymentModal('VISA Card', 'Xalqaro bank kartalari tizimi.', 'https://visa.com')">
                 <i class="fa-brands fa-cc-visa"></i> VISA
             </div>
         </div>
@@ -269,7 +276,7 @@
     <div class="modal-overlay" id="customModal">
         <div class="modal-box">
             <h3 id="modalTitle">Sotib olish</h3>
-            <p id="modalDesc">Ushbu darslikni faollashtirish uchun pastdagi havola orqali botimizga o'ting va to'lov chekini yuboring.</p>
+            <p id="modalDesc">...</p>
             <a href="#" id="modalRedirectLink" target="_blank" class="modal-redirect-btn">Botga o'tish ➔</a>
             <button class="modal-close-btn" onclick="closeModal()">Yopish</button>
         </div>
@@ -281,15 +288,15 @@
 
     <script>
         // =============================================================
-        // 📋 1. PREMIUM FOYDALANUVCHILAR TELEGRAM ID RO'YXATI
+        // 📋 1. SOTIB OLGANLAR RO'YXATI (HOZIRCHA BO'SH / TOZALANDI)
         // =============================================================
         const premiumUsers = {
-            651936747: ["kitob1", "kitob2"], // Rasmdagi ID raqamingiz uchun namuna ruxsat
-            123456789: ["kitob1"]
+            // Kim sotib olsa ID raqamini pastdagidek qo'shib qo'yasiz:
+            // 651936747: ["kitob1"]
         };
 
-        // Hozirda faqat 4 ta kitob ochiq turgani uchun:
         let activeBooksCount = 4; 
+        let currentLang = 'uz';
 
         // --- Telegram Integration ---
         const tg = window.Telegram.WebApp;
@@ -304,45 +311,66 @@
             document.getElementById("userInfo").innerText = "Foydalanuvchi: Brauzerdan kirildi (ID: ---)";
         }
 
-        // --- 🔐 KITOBLAR RUXSATINI AVTOMATIK TEKSHIRISH ---
-        function checkBookAccess() {
-            const booksData = [
-                { id: 1, code: "kitob1", name: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/SizningBotLink_kitob1" },
-                { id: 2, code: "kitob2", name: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/SizningBotLink_kitob2" },
-                { id: 3, code: "kitob3", name: "Essential English Words 3", path: "essential-words-3/index.html", link: "https://t.me/SizningBotLink_kitob3" },
-                { id: 4, code: "kitob4", name: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/SizningBotLink_kitob4" }
-            ];
+        // Kitob ma'lumotlar bazasi
+        const booksData = [
+            { id: 1, code: "kitob1", name: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/SizningBotLink_kitob1" },
+            { id: 2, code: "kitob2", name: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/SizningBotLink_kitob2" },
+            { id: 3, code: "kitob3", name: "Essential English Words 3", path: "essential-words-3/index.html", link: "https://t.me/SizningBotLink_kitob3" },
+            { id: 4, code: "kitob4", name: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/SizningBotLink_kitob4" }
+        ];
 
+        // --- 🔐 KITOBLAR TUGMASI VA TILINI TEKSHIRISH ---
+        function checkBookAccess() {
             booksData.forEach(book => {
                 const btn = document.getElementById(`btn-read-${book.id}`);
+                const priceLabel = document.getElementById(`p-price-${book.id}`);
                 if (!btn) return;
 
+                // Narxlar matnini tilga moslash
+                if (priceLabel) {
+                    priceLabel.innerText = currentLang === 'uz' ? "💰 25,000 so'm" : "💰 25,000 UZS";
+                }
+
+                // Ruxsatni tekshirish
                 if (premiumUsers[userId] && premiumUsers[userId].includes(book.code)) {
-                    btn.href = book.path;
+                    btn.onclick = function() { window.location.href = book.path; };
                     btn.style.backgroundColor = "#27ae60"; 
-                    btn.innerText = "O'qishni boshlash ➔";
-                    btn.removeAttribute("onclick");
+                    btn.innerText = currentLang === 'uz' ? "O'qishni boshlash ➔" : "Start Reading ➔";
                 } else {
-                    btn.innerText = "Sotib olish 🛒";
+                    btn.onclick = function() { openBookModal(book.name, book.link); };
                     btn.style.backgroundColor = "#e74c3c"; 
-                    btn.href = "#";
-                    btn.setAttribute("onclick", `openModal('${book.name}', 'Narxi: 25,000 so\'m', '${book.link}')`);
+                    btn.innerText = currentLang === 'uz' ? "Sotib olish 🛒" : "Buy 🛒";
                 }
             });
         }
 
-        checkBookAccess();
-
-        // --- MODAL TIZIMI ---
-        function openModal(title, info, link) {
-            document.getElementById("modalTitle").innerText = title;
-            document.getElementById("modalDesc").innerText = `Siz "${title}" darsligini tanladingiz.\nHolati: ${info}.\n\nDavom etish va rasmiy bot orqali faollashtirish uchun pastdagi tugmani bosing.`;
+        // --- MODAL OCHILISH FUNKSIYALARI ---
+        function openBookModal(bookName, link) {
+            document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Sotib olish" : "Purchase";
+            
+            if (currentLang === 'uz') {
+                document.getElementById("modalDesc").innerText = `Siz "${bookName}" darsligini tanladingiz.\nNarxi: 25,000 so'm.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lovni amalga oshiring.`;
+                document.getElementById("modalRedirectLink").innerText = "Botga o'tish ➔";
+            } else {
+                document.getElementById("modalDesc").innerText = `You selected "${bookName}".\nPrice: 25,000 UZS.\n\nTo activate this book, please proceed to our official bot and complete the payment.`;
+                document.getElementById("modalRedirectLink").innerText = "Go to Bot ➔";
+            }
+            
             document.getElementById("modalRedirectLink").href = link;
             document.getElementById("customModal").style.display = "flex";
         }
+
+        function openPaymentModal(title, text, link) {
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalDesc").innerText = text;
+            document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "To'lov tizimiga o'tish ➔" : "Proceed to Payment ➔";
+            document.getElementById("modalRedirectLink").href = link;
+            document.getElementById("customModal").style.display = "flex";
+        }
+
         function closeModal() { document.getElementById("customModal").style.display = "none"; }
 
-        // --- 📚 TIKLANGAN KARUSEL HARAKATI ---
+        // --- 📚 KARUSEL HARAKATI ---
         let currentBookIndex = 0;
         function moveBooks(direction) {
             currentBookIndex += direction;
@@ -365,7 +393,7 @@
             },
             en: {
                 "hero-title-1": "⚡ Easy payment via CLICK!", "hero-desc-1": "Get 10% cashback bonuses.",
-                "hero-title-2": "💸 0% Commission with PAYME!", "hero-desc-2": "Activate text books instantly.",
+                "hero-title-2": "💸 0% Commission with PAYME!", "hero-desc-2": "Activate textbooks instantly.",
                 "hero-title-3": "🎉 Intellectual Games!", "hero-desc-3": "Take your knowledge to the top.",
                 "sec-title": "— BOOKS LIST —", "pay-title": "— PAYMENT SYSTEMS —",
                 "footer-text": "© 2026 My Vocabularies. All rights reserved."
@@ -373,6 +401,7 @@
         };
 
         function changeLanguage(lang) {
+            currentLang = lang;
             for (let key in translations[lang]) {
                 const element = document.getElementById(key);
                 if (element) element.innerText = translations[lang][key];
@@ -381,7 +410,7 @@
             checkBookAccess(); 
         }
 
-        // --- REKLAMA AFISHASI TIMERI ---
+        // --- REKLAMA SLIDERI ---
         let currentSlide = 0;
         setInterval(() => {
             currentSlide = (currentSlide + 1) % 3;
