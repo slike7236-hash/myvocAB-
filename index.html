@@ -12,11 +12,11 @@
             --bg-color: #f7f5f0;
         }
         body {
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0; padding: 0;
             background-color: var(--bg-color);
             color: #333;
-            overflow-x: hidden; /* Yon tomonga qimirlamasligi uchun */
+            overflow-x: hidden;
         }
         
         /* NAVBAR */
@@ -26,19 +26,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px; /* Padding kamaytirildi */
+            padding: 10px 15px;
             height: 60px;
+            box-sizing: border-box;
         }
 
         .marquee-zone {
-            width: 60%; /* Telefonda ko'proq joy ajratamiz */
-            margin: 0 auto;
+            width: 55%;
             overflow: hidden;
             white-space: nowrap;
+            text-align: center;
         }
 
         .logo-marquee { 
-            font-size: 22px; /* Telefonda kichikroq shrift */
+            font-size: 22px;
             font-weight: 900; 
             display: inline-block;
             color: #fff;
@@ -51,12 +52,22 @@
             100% { transform: translateX(-100%); }
         }
 
+        /* TIL TANLASH (Tugma bosilishi oson qilindi) */
+        .lang-box {
+            z-index: 10;
+        }
         .lang-select {
-            background: #2c3e50; color: white; border: 1px solid #444;
-            padding: 4px 8px; font-size: 12px; border-radius: 4px;
+            background: #2c3e50;
+            color: white;
+            border: 1px solid #444;
+            padding: 6px 10px;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            outline: none;
         }
 
-        /* REKLAMA BANNERI (MOBILE-FIRST) */
+        /* REKLAMA BANNERI */
         .hero-wrapper {
             width: 100%;
             overflow: hidden;
@@ -74,23 +85,14 @@
             box-sizing: border-box;
             color: white;
             text-align: center;
-            padding: 30px 15px; /* Padding telefonga moslandi */
+            padding: 30px 15px;
             min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
-
-        .slide h1 { 
-            font-size: 20px; /* REKLAMA SARLOHASI TELEFONDA KICHRAYDI */
-            margin: 0 0 8px 0; 
-            line-height: 1.2;
-        }
-        .slide p { 
-            font-size: 13px; /* IZOH KICHRAYDI */
-            color: #f1c40f; 
-            margin: 0; 
-        }
+        .slide h1 { font-size: 20px; margin: 0 0 8px 0; line-height: 1.2; font-weight: bold; }
+        .slide p { font-size: 13px; color: #f1c40f; margin: 0; }
 
         /* FOYDALANUVCHI PANELi */
         .user-badge {
@@ -98,24 +100,25 @@
             margin: 10px 0; 
             font-weight: bold; 
             color: #2c3e50; 
-            font-size: 12px; /* ID raqami kichikroq bo'ldi */
+            font-size: 12px;
             background: #fff;
-            padding: 5px;
+            padding: 8px;
             border-bottom: 1px solid #ddd;
         }
 
         /* KITOBLAR SEKSIYASI */
         .section-title { 
             text-align: center; 
-            margin: 20px 0 15px 0; 
-            font-size: 18px; /* Sarlavha telefonga moslandi */
+            margin: 25px 0 15px 0; 
+            font-size: 18px; 
             color: var(--primary-color); 
             text-transform: uppercase; 
             font-weight: bold; 
+            letter-spacing: 1px;
         }
         .books-grid { 
             display: flex; 
-            flex-direction: column; /* Telefonda kitoblar ustma-ust tushadi */
+            flex-direction: column;
             align-items: center;
             gap: 20px; 
             padding: 0 15px; 
@@ -124,17 +127,17 @@
             background: white; 
             border: 1px solid #e0e0e0; 
             border-radius: 8px; 
-            width: 90%; /* Kitob kartasi eniga kengaydi */
-            max-width: 300px;
+            width: 100%;
+            max-width: 280px;
             padding: 15px; 
             text-align: center; 
             box-shadow: 0 3px 8px rgba(0,0,0,0.05); 
-            position: relative;
+            box-sizing: border-box;
         }
         
         .book-img { 
             width: 120px; 
-            height: 180px; 
+            height: 170px; 
             margin: 0 auto 10px auto; 
             display: flex; 
             align-items: center; 
@@ -143,9 +146,11 @@
             font-weight: bold;
             color: white;
             border-radius: 4px;
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.15);
         }
         .book-title { font-size: 18px; margin: 8px 0; font-weight: bold; }
         .book-price { color: #27ae60; font-weight: bold; font-size: 16px; margin-bottom: 12px; }
+        
         .book-btn { 
             display: inline-block; 
             background-color: var(--primary-color); 
@@ -154,29 +159,38 @@
             text-decoration: none; 
             border-radius: 4px; 
             font-weight: bold; 
-            width: 90%; 
+            width: 100%; 
             font-size: 14px;
+            box-sizing: border-box;
+            transition: 0.2s;
         }
 
-        /* TO'LOV TIZIMLARI */
+        /* TO'LOV TIZIMLARI (Tugmalar ishlaydigan va chiroyli qilindi) */
         .payment-grid { 
             display: flex; 
             justify-content: center; 
-            gap: 10px; 
-            margin-top: 15px; 
-            padding: 0 10px; 
+            gap: 15px; 
+            margin: 15px auto; 
+            padding: 0 15px;
+            max-width: 320px;
         }
         .payment-card { 
             background: white; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 6px; 
-            flex: 1; 
-            padding: 15px 5px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 8px; 
+            flex: 1;
+            padding: 12px 5px; 
             font-size: 16px; 
             font-weight: bold; 
             text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
         }
-        
+        .payment-card:active {
+            transform: scale(0.95);
+        }
+
         footer { 
             background-color: var(--primary-color); 
             color: white; 
@@ -186,24 +200,24 @@
             font-size: 12px;
         }
 
-        /* KOMPYUTER UCHUN MAXSUS SOZLAMALAR (Katta ekran bo'lsa shriftlar yana kattalashadi) */
+        /* KATTA EKRANLAR UCHUN MOSLASHUV */
         @media (min-width: 768px) {
             .logo-marquee { font-size: 38px; }
             .slide h1 { font-size: 36px; }
             .slide p { font-size: 18px; }
             .books-grid { flex-direction: row; justify-content: center; }
             .section-title { font-size: 24px; }
+            .book-card { max-width: 250px; }
         }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div style="width: 40px;"></div>
-        <div class="marquee-zone">
+        <div style="width: 45px;"></div> <div class="marquee-zone">
             <div class="logo-marquee">My Vocabularies</div>
         </div>
-        <div>
+        <div class="lang-box">
             <select class="lang-select" onchange="changeLanguage(this.value)">
                 <option value="uz">O'zbekcha</option>
                 <option value="en">English</option>
@@ -214,52 +228,53 @@
     <div class="hero-wrapper">
         <div class="slider-container" id="sliderContainer">
             <div class="slide">
-                <h1 data-key="hero-title-1">⚡ CLICK orqali oson to'lov!</h1>
-                <p data-key="hero-desc-1">10% keshbekka ega bo'ling.</p>
+                <h1 id="hero-title-1">⚡ CLICK orqali oson to'lov!</h1>
+                <p id="hero-desc-1">10% keshbekka ega bo'ling.</p>
             </div>
             <div class="slide">
-                <h1 data-key="hero-title-2">💸 PAYME bilan 0% komissiya!</h1>
-                <p data-key="hero-desc-2">Darsliklarni bir zumda faollashtiring.</p>
+                <h1 id="hero-title-2">💸 PAYME bilan 0% komissiya!</h1>
+                <p id="hero-desc-2">Darsliklarni bir zumda faollashtiring.</p>
             </div>
             <div class="slide">
-                <h1 data-key="hero-title-3">🎉 Intellektual o'yinlar!</h1>
-                <p data-key="hero-desc-3">Bilimingizni yuqori darajaga olib chiqing.</p>
+                <h1 id="hero-title-3">🎉 Intellektual o'yinlar!</h1>
+                <p id="hero-desc-3">Bilimingizni yuqori darajaga olib chiqing.</p>
             </div>
         </div>
     </div>
 
     <div class="user-badge" id="userInfo">ID: Aniqlanmoqda...</div>
 
-    <div class="section-title" data-key="section-title">— KITOBLAR RO'YXATI —</div>
+    <div class="section-title" id="sec-title">— KITOBLAR RO'YXATI —</div>
     
     <div class="books-grid">
-        <div class="book-card" id="book1">
+        <div class="book-card">
             <div class="book-img" style="background-color: #0f5132;">O'TGAN KUNLAR</div>
             <div class="book-title">O'tkan Kunlar</div>
-            <div class="book-price">💰 45,000 so'm</div>
-            <a href="essential-words/index.html" class="book-btn">Ochish ➔</a>
+            <div class="book-price" id="p-price-1">💰 45,000 so'm</div>
+            <a href="essential-words/index.html" class="book-btn" id="btn-read-1">Ochish ➔</a>
         </div>
-        <div class="book-card" id="book2">
+        <div class="book-card">
             <div class="book-img" style="background-color: #d9a05b;">ALKIMYOGAR</div>
             <div class="book-title">Alkimyogar</div>
-            <div class="book-price">💰 38,000 so'm</div>
-            <a href="solutions-book/index.html" class="book-btn">Ochish ➔</a>
+            <div class="book-price" id="p-price-2">💰 38,000 so'm</div>
+            <a href="solutions-book/index.html" class="book-btn" id="btn-read-2">Ochish ➔</a>
         </div>
     </div>
 
     <div class="payment-section">
-        <div class="section-title" data-key="payment-title">— TO'LOV TIZIMLARI —</div>
+        <div class="section-title" id="pay-title">— TO'LOV TIZIMLARI —</div>
         <div class="payment-grid">
-            <div class="payment-card" style="color: #5e257c;">CLICK</div>
-            <div class="payment-card" style="color: #00bfa5;">PAYME</div>
+            <div class="payment-card" style="color: #5e257c; border-color: #5e257c;" onclick="payVia('Click')">▶ CLICK</div>
+            <div class="payment-card" style="color: #00bfa5; border-color: #00bfa5;" onclick="payVia('Payme')">⚡ PAYME</div>
         </div>
     </div>
 
     <footer>
-        <p data-key="footer-text">© 2026 My Vocabularies. All rights reserved.</p>
+        <p id="footer-text">© 2026 My Vocabularies. Barcha huquqlar himoyalangan.</p>
     </footer>
 
     <script>
+        // --- 🤖 TELEGRAM INTEGRATSIYASI ---
         const tg = window.Telegram.WebApp;
         tg.expand();
         const telegramUser = tg.initDataUnsafe?.user;
@@ -267,12 +282,70 @@
             document.getElementById("userInfo").innerText = `Foydalanuvchi: ${telegramUser.first_name} (ID: ${telegramUser.id})`;
         }
 
+        // --- 💸 TO'LOV TUGMASI BOSILGANDA (Klik funksiyasi) ---
+        function payVia(system) {
+            alert(system + " tizimi orqali to'lov sahifasiga o'tilmoqda...");
+            // Bu yerga kelajakda to'lov havolasini (linkini) qo'yish mumkin
+        }
+
+        // --- 🌐 TO'LIQ TIL LUG'ATI VA FUNKSIYASI ---
+        const translations = {
+            uz: {
+                "hero-title-1": "⚡ CLICK orqali oson to'lov!",
+                "hero-desc-1": "10% keshbekka ega bo'ling.",
+                "hero-title-2": "💸 PAYME bilan 0% komissiya!",
+                "hero-desc-2": "Darsliklarni bir zumda faollashtiring.",
+                "hero-title-3": "🎉 Intellektual o'yinlar!",
+                "hero-desc-3": "Bilimingizni yuqori darajaga olib chiqing.",
+                "sec-title": "— KITOBLAR RO'YXATI —",
+                "pay-title": "— TO'LOV TIZIMLARI —",
+                "p-price-1": "💰 45,000 so'm",
+                "p-price-2": "💰 38,000 so'm",
+                "btn-read-1": "Ochish ➔",
+                "btn-read-2": "Ochish ➔",
+                "footer-text": "© 2026 My Vocabularies. Barcha huquqlar himoyalangan."
+            },
+            en: {
+                "hero-title-1": "⚡ Easy payment via CLICK!",
+                "hero-desc-1": "Get 10% cashback bonuses.",
+                "hero-title-2": "💸 0% Commission with PAYME!",
+                "hero-desc-2": "Activate text books instantly.",
+                "hero-title-3": "🎉 Intellectual Games!",
+                "hero-desc-3": "Take your knowledge to the top.",
+                "sec-title": "— BOOKS LIST —",
+                "pay-title": "— PAYMENT SYSTEMS —",
+                "p-price-1": "💰 45,000 UZS",
+                "p-price-2": "💰 38,000 UZS",
+                "btn-read-1": "Open ➔",
+                "btn-read-2": "Open ➔",
+                "footer-text": "© 2026 My Vocabularies. All rights reserved."
+            }
+        };
+
+        function changeLanguage(lang) {
+            for (let key in translations[lang]) {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.innerText = translations[lang][key];
+                }
+            }
+            localStorage.setItem('selectedLang', lang);
+        }
+
+        // --- 🎪 REKLAMA BANNERI ALMASHINUVI ---
         let currentSlide = 0;
         const sliderContainer = document.getElementById("sliderContainer");
         setInterval(() => {
             currentSlide = (currentSlide + 1) % 3;
             sliderContainer.style.transform = `translateX(-${currentSlide * 100}vw)`;
-        }, 8000); // Tezroq almashish
+        }, 12000); // Siz aytgandek 12 soniya atrofida turadi
+
+        // Sahifa yuklanganda saqlangan tilni yoqish
+        window.onload = function() {
+            const savedLang = localStorage.getItem('selectedLang') || 'uz';
+            document.querySelector('.lang-select').value = savedLang;
+            changeLanguage(savedLang);
+        }
     </script>
 </body>
 </html>
