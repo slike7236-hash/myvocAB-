@@ -97,28 +97,37 @@
         .slide h1 { font-size: 18px; margin: 0 0 5px 0; font-weight: bold; }
         .slide p { font-size: 12px; color: #f1c40f; margin: 0; }
 
-        /* BADGELAR VA KATEGORIYA VERTIKAL TIZIMI */
+        /* BADGELAR */
         .user-badge { text-align: center; margin: 0; font-weight: bold; color: #2c3e50; font-size: 12px; background: #fff; padding: 8px; border-bottom: 1px solid #ddd; }
-        .section-title { text-align: center; margin: 25px 0 15px 0; font-size: 16px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; background: #eef2f5; padding: 8px 0; border-y: 1px solid #ddd; }
+        .section-title { text-align: center; margin: 20px 0 10px 0; font-size: 16px; color: var(--primary-color); text-transform: uppercase; font-weight: bold; }
 
-        /* KITOBLAR VERTIKAL RO'YXATI */
-        .books-container {
-            display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 10px 15px;
-        }
+        /* ↔️ YONMA-YON KARUSEL TIZIMI */
+        .carousel-wrapper { position: relative; width: 100%; max-width: 320px; margin: 0 auto; overflow: hidden; padding: 10px 0; z-index: 5; }
+        .books-slider { display: flex; transition: transform 0.4s ease-out; width: auto; }
         .book-card { 
             background: white; border: 1px solid #e0e0e0; border-radius: 8px; 
-            width: 100%; max-width: 320px; padding: 15px;
+            width: 280px; padding: 15px; margin: 0 20px;
             text-align: center; box-shadow: 0 3px 8px rgba(0,0,0,0.05); box-sizing: border-box;
+            flex-shrink: 0;
         }
         .book-img { width: 120px; height: 170px; margin: 0 auto 10px auto; display: block; border-radius: 4px; box-shadow: 2px 2px 8px rgba(0,0,0,0.25); object-fit: cover; }
-        .book-title { font-size: 14px; margin: 5px 0; font-weight: bold; height: 35px; display: flex; align-items: center; justify-content: center; }
-        .book-price { color: #27ae60; font-weight: bold; font-size: 14px; margin-bottom: 10px; }
+        .book-title { font-size: 14px; margin: 5px 0; font-weight: bold; height: 40px; display: flex; align-items: center; justify-content: center; }
+        .book-price { color: #27ae60; font-weight: bold; font-size: 15px; margin-bottom: 10px; }
         
         .book-btn { 
             display: inline-block; color: white; padding: 10px; text-decoration: none; border-radius: 4px; font-weight: bold; width: 100%; font-size: 13px;
             box-sizing: border-box; border: none; cursor: pointer; transition: 0.2s; text-align: center;
         }
         .book-btn:active { transform: scale(0.97); }
+
+        /* NAVIGATSIYA TUGMALARI < > */
+        .nav-btn {
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(11, 29, 51, 0.85); color: white; border: none;
+            width: 36px; height: 36px; border-radius: 50%; font-size: 14px; font-weight: bold; cursor: pointer; z-index: 8; display: flex; align-items: center; justify-content: center;
+        }
+        .nav-btn:active { background: var(--accent-color); }
+        .nav-btn.prev { left: 2px; }
+        .nav-btn.next { right: 2px; }
 
         /* TO'LOV TIZIMLARI */
         .payment-grid { display: flex; justify-content: center; gap: 10px; margin: 10px auto; padding: 0 15px; max-width: 340px; }
@@ -132,7 +141,7 @@
         .payme-btn { color: #00bfa5; border-color: #00bfa5; }
         .visa-btn { color: #1a1f71; border-color: #1a1f71; }
 
-        /* MODAL OYNALAR */
+        /* MODAL ALERT OYNASI */
         .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 200; justify-content: center; align-items: center; }
         .modal-box { background: white; padding: 20px; border-radius: 10px; width: 85%; max-width: 300px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); animation: popIn 0.3s ease; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
@@ -142,6 +151,13 @@
         .modal-close-btn { display: block; background: #e74c3c; color: white; padding: 8px; border: none; border-radius: 5px; width: 100%; font-size: 12px; cursor: pointer; }
 
         footer { background-color: var(--primary-color); color: white; text-align: center; padding: 12px; margin-top: 20px; font-size: 11px; }
+
+        @media (min-width: 768px) {
+            .logo-marquee { font-size: 32px; } .slide h1 { font-size: 30px; }
+            .carousel-wrapper { max-width: 700px; } .nav-btn { display: none; }
+            .books-slider { justify-content: center; flex-wrap: wrap; }
+            .book-card { margin: 15px; }
+        }
     </style>
 </head>
 <body>
@@ -156,10 +172,10 @@
         <div class="sidebar-menu">
             <p class="menu-title" id="m-cate-title">Kategoriyalar</p>
             <div class="sub-menu">
-                <div class="menu-item" onclick="scrollToSection('sec-essential')"><i class="fa-solid fa-book"></i> Essential Words</div>
-                <div class="menu-item" onclick="scrollToSection('sec-solution')"><i class="fa-solid fa-graduation-cap"></i> Solution Books</div>
-                <div class="menu-item" onclick="scrollToSection('sec-read')"><i class="fa-solid fa-book-open"></i> Read and Understand</div>
-                <div class="menu-item" onclick="scrollToSection('sec-ielts')"><i class="fa-solid fa-star"></i> IELTS Vocabularies</div>
+                <div class="menu-item" onclick="jumpToBookIndex(0)"><i class="fa-solid fa-book"></i> Essential Words</div>
+                <div class="menu-item" onclick="jumpToBookIndex(6)"><i class="fa-solid fa-graduation-cap"></i> Solution Books</div>
+                <div class="menu-item" onclick="jumpToBookIndex(11)"><i class="fa-solid fa-book-open"></i> Read and Understand</div>
+                <div class="menu-item" onclick="jumpToBookIndex(15)"><i class="fa-solid fa-star"></i> IELTS Vocabularies</div>
             </div>
 
             <div class="menu-sep"></div>
@@ -206,116 +222,114 @@
 
     <div class="user-badge" id="userInfo">Foydalanuvchi: Aniqlanmoqda...</div>
 
-    <div class="section-title" id="sec-essential">— ESSENTIAL WORDS (1-6) —</div>
-    <div class="books-container">
-        <div class="book-card" id="card-1">
-            <img src="ess1.jpg" class="book-img" alt="Essential 1">
-            <div class="book-title" id="t-book-1">Essential English Words 1</div>
-            <div class="book-price" id="p-price-1">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-1">...</button>
-        </div>
-        <div class="book-card" id="card-2">
-            <img src="ess2.jpg" class="book-img" alt="Essential 2">
-            <div class="book-title" id="t-book-2">Essential English Words 2</div>
-            <div class="book-price" id="p-price-2">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-2">...</button>
-        </div>
-        <div class="book-card" id="card-3">
-            <img src="ess3.jpg" class="book-img" alt="Essential 3">
-            <div class="book-title" id="t-book-3">Essential English Words 3</div>
-            <div class="book-price" id="p-price-3">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-3">...</button>
-        </div>
-        <div class="book-card" id="card-4">
-            <img src="ess4.jpg" class="book-img" alt="Essential 4">
-            <div class="book-title" id="t-book-4">Essential English Words 4</div>
-            <div class="book-price" id="p-price-4">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-4">...</button>
-        </div>
-        <div class="book-card" id="card-5">
-            <img src="ess5.jpg" class="book-img" alt="Essential 5">
-            <div class="book-title" id="t-book-5">Essential English Words 5</div>
-            <div class="book-price" id="p-price-5">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-5">...</button>
-        </div>
-        <div class="book-card" id="card-6">
-            <img src="ess6.jpg" class="book-img" alt="Essential 6">
-            <div class="book-title" id="t-book-6">Essential English Words 6</div>
-            <div class="book-price" id="p-price-6">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-6">...</button>
-        </div>
-    </div>
+    <div class="section-title" id="sec-title">— KITOBLAR RO'YXATI —</div>
+    
+    <div class="carousel-wrapper">
+        <button class="nav-btn prev" onclick="moveBooks(-1)"><i class="fa-solid fa-angle-left"></i></button>
+        <div class="books-slider" id="booksSlider">
+            
+            <div class="book-card">
+                <img src="ess1.jpg" class="book-img" alt="Essential 1">
+                <div class="book-title" id="t-book-1">Essential English Words 1</div>
+                <div class="book-price" id="p-price-1">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-1">...</button>
+            </div>
+            <div class="book-card">
+                <img src="ess2.jpg" class="book-img" alt="Essential 2">
+                <div class="book-title" id="t-book-2">Essential English Words 2</div>
+                <div class="book-price" id="p-price-2">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-2">...</button>
+            </div>
+            <div class="book-card">
+                <img src="ess3.jpg" class="book-img" alt="Essential 3">
+                <div class="book-title" id="t-book-3">Essential English Words 3</div>
+                <div class="book-price" id="p-price-3">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-3">...</button>
+            </div>
+            <div class="book-card">
+                <img src="ess4.jpg" class="book-img" alt="Essential 4">
+                <div class="book-title" id="t-book-4">Essential English Words 4</div>
+                <div class="book-price" id="p-price-4">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-4">...</button>
+            </div>
+            <div class="book-card">
+                <img src="ess5.jpg" class="book-img" alt="Essential 5">
+                <div class="book-title" id="t-book-5">Essential English Words 5</div>
+                <div class="book-price" id="p-price-5">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-5">...</button>
+            </div>
+            <div class="book-card">
+                <img src="ess6.jpg" class="book-img" alt="Essential 6">
+                <div class="book-title" id="t-book-6">Essential English Words 6</div>
+                <div class="book-price" id="p-price-6">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-6">...</button>
+            </div>
 
-    <div class="section-title" id="sec-solution">— SOLUTION BOOKS —</div>
-    <div class="books-container">
-        <div class="book-card" id="card-7">
-            <img src="solel.jpg" class="book-img" alt="Solution El">
-            <div class="book-title" id="t-book-7">Solution Elementary</div>
-            <div class="book-price" id="p-price-7">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-7">...</button>
-        </div>
-        <div class="book-card" id="card-8">
-            <img src="solpre.jpg" class="book-img" alt="Solution Pre">
-            <div class="book-title" id="t-book-8">Solution Pre-Intermediate</div>
-            <div class="book-price" id="p-price-8">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-8">...</button>
-        </div>
-        <div class="book-card" id="card-9">
-            <img src="solint.jpg" class="book-img" alt="Solution Int">
-            <div class="book-title" id="t-book-9">Solution Intermediate</div>
-            <div class="book-price" id="p-price-9">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-9">...</button>
-        </div>
-        <div class="book-card" id="card-10">
-            <img src="solup.jpg" class="book-img" alt="Solution Upper">
-            <div class="book-title" id="t-book-10">Solution Upper-Intermediate</div>
-            <div class="book-price" id="p-price-10">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-10">...</button>
-        </div>
-        <div class="book-card" id="card-11">
-            <img src="solad.jpg" class="book-img" alt="Solution Adv">
-            <div class="book-title" id="t-book-11">Solution Advanced</div>
-            <div class="book-price" id="p-price-11">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-11">...</button>
-        </div>
-    </div>
+            <div class="book-card">
+                <img src="solel.jpg" class="book-img" alt="Solution El">
+                <div class="book-title" id="t-book-7">Solution Elementary</div>
+                <div class="book-price" id="p-price-7">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-7">...</button>
+            </div>
+            <div class="book-card">
+                <img src="solpre.jpg" class="book-img" alt="Solution Pre">
+                <div class="book-title" id="t-book-8">Solution Pre-Intermediate</div>
+                <div class="book-price" id="p-price-8">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-8">...</button>
+            </div>
+            <div class="book-card">
+                <img src="solint.jpg" class="book-img" alt="Solution Int">
+                <div class="book-title" id="t-book-9">Solution Intermediate</div>
+                <div class="book-price" id="p-price-9">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-9">...</button>
+            </div>
+            <div class="book-card">
+                <img src="solup.jpg" class="book-img" alt="Solution Upper">
+                <div class="book-title" id="t-book-10">Solution Upper-Intermediate</div>
+                <div class="book-price" id="p-price-10">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-10">...</button>
+            </div>
+            <div class="book-card">
+                <img src="solad.jpg" class="book-img" alt="Solution Adv">
+                <div class="book-title" id="t-book-11">Solution Advanced</div>
+                <div class="book-price" id="p-price-11">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-11">...</button>
+            </div>
 
-    <div class="section-title" id="sec-read">— READ AND UNDERSTAND (1-4) —</div>
-    <div class="books-container">
-        <div class="book-card" id="card-12">
-            <img src="read1.jpg" class="book-img" alt="Read 1">
-            <div class="book-title" id="t-book-12">Read & Understand 1</div>
-            <div class="book-price" id="p-price-12">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-12">...</button>
-        </div>
-        <div class="book-card" id="card-13">
-            <img src="read2.jpg" class="book-img" alt="Read 2">
-            <div class="book-title" id="t-book-13">Read & Understand 2</div>
-            <div class="book-price" id="p-price-13">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-13">...</button>
-        </div>
-        <div class="book-card" id="card-14">
-            <img src="read3.jpg" class="book-img" alt="Read 3">
-            <div class="book-title" id="t-book-14">Read & Understand 3</div>
-            <div class="book-price" id="p-price-14">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-14">...</button>
-        </div>
-        <div class="book-card" id="card-15">
-            <img src="read4.jpg" class="book-img" alt="Read 4">
-            <div class="book-title" id="t-book-15">Read & Understand 4</div>
-            <div class="book-price" id="p-price-15">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-15">...</button>
-        </div>
-    </div>
+            <div class="book-card">
+                <img src="read1.jpg" class="book-img" alt="Read 1">
+                <div class="book-title" id="t-book-12">Read & Understand 1</div>
+                <div class="book-price" id="p-price-12">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-12">...</button>
+            </div>
+            <div class="book-card">
+                <img src="read2.jpg" class="book-img" alt="Read 2">
+                <div class="book-title" id="t-book-13">Read & Understand 2</div>
+                <div class="book-price" id="p-price-13">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-13">...</button>
+            </div>
+            <div class="book-card">
+                <img src="read3.jpg" class="book-img" alt="Read 3">
+                <div class="book-title" id="t-book-14">Read & Understand 3</div>
+                <div class="book-price" id="p-price-14">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-14">...</button>
+            </div>
+            <div class="book-card">
+                <img src="read4.jpg" class="book-img" alt="Read 4">
+                <div class="book-title" id="t-book-15">Read & Understand 4</div>
+                <div class="book-price" id="p-price-15">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-15">...</button>
+            </div>
 
-    <div class="section-title" id="sec-ielts">— IELTS VOCABULARIES —</div>
-    <div class="books-container">
-        <div class="book-card" id="card-16">
-            <img src="ielt.jpg" class="book-img" alt="IELTS Vocab">
-            <div class="book-title" id="t-book-16">Vocabulary for IELTS</div>
-            <div class="book-price" id="p-price-16">💰 25,000 so'm</div>
-            <button class="book-btn" id="btn-read-16">...</button>
+            <div class="book-card">
+                <img src="ielt.jpg" class="book-img" alt="IELTS Vocab">
+                <div class="book-title" id="t-book-16">Vocabulary for IELTS</div>
+                <div class="book-price" id="p-price-16">💰 25,000 so'm</div>
+                <button class="book-btn" id="btn-read-16">...</button>
+            </div>
+
         </div>
+        <button class="nav-btn next" onclick="moveBooks(1)"><i class="fa-solid fa-angle-right"></i></button>
     </div>
 
     <div class="payment-section">
@@ -347,14 +361,14 @@
     </footer>
 
     <script>
-        // PREMIUM USER RO'YXATI (Masalan test uchun sizning ID)
-        const premiumUsers = {
-            // 12345678: ["ess1", "solpre"]
-        };
+        // PREMIUM METOD
+        const premiumUsers = {};
 
         let currentLang = 'uz';
+        let currentBookIndex = 0;
+        const totalBooksCount = 16; // Jami 16 ta kitob
 
-        // Telegram WebApp Oyna sozlamalari
+        // Telegram Integration
         const tg = window.Telegram.WebApp;
         tg.expand();
         const telegramUser = tg.initDataUnsafe?.user;
@@ -387,26 +401,39 @@
             { id: 16, code: "ielt", nameUz: "Vocabulary for IELTS", nameEn: "Vocabulary for IELTS", path: "ielts-vocab/index.html", link: "https://t.me/SizningBotLink_ielt" }
         ];
 
-        // Sidebar ochilish/yopilishi
+        // Sidebar boshqaruvi
         function toggleSidebar(open) {
             const sidebar = document.getElementById("sidebarMenu");
             const overlay = document.getElementById("sidebarOverlay");
-            if(sidebar && overlay) {
-                if (open) { sidebar.classList.add("open"); overlay.style.display = "block"; } 
-                else { sidebar.classList.remove("open"); overlay.style.display = "none"; }
-            }
+            if (open) { sidebar.classList.add("open"); overlay.style.display = "block"; } 
+            else { sidebar.classList.remove("open"); overlay.style.display = "none"; }
         }
 
-        // Burger menudan kategoriyaga sakrash funksiyasi
-        function scrollToSection(sectionId) {
+        // 🎯 BURGER MENUDAN TANLANGANDA KARUSELNI O'SHA JAYGA SURISH
+        function jumpToBookIndex(index) {
             toggleSidebar(false);
-            const target = document.getElementById(sectionId);
-            if(target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            currentBookIndex = index;
+            renderCarouselPosition();
+        }
+
+        // Karuselni surish formulasi
+        function renderCarouselPosition() {
+            const slider = document.getElementById("booksSlider");
+            if (slider) {
+                const offset = currentBookIndex * 320; // Har bir karta kengligi (280px + 40px margin)
+                slider.style.transform = `translateX(-${offset}px)`;
             }
         }
 
-        // Faqat sotib olingan kitoblarni ajratib ko'rsatish yoki modal ogohlantirish
+        // < va > tugmalari bosilganda varaqlash
+        function moveBooks(direction) {
+            currentBookIndex += direction;
+            if (currentBookIndex < 0) currentBookIndex = 0;
+            if (currentBookIndex > totalBooksCount - 1) currentBookIndex = totalBooksCount - 1;
+            renderCarouselPosition();
+        }
+
+        // Obunalar bo'limi bosilganda
         function showOwnedBooks() {
             toggleSidebar(false);
             const userOwned = premiumUsers[userId] || [];
@@ -416,25 +443,20 @@
                 document.getElementById("modalRedirectLink").style.display = "none";
                 document.getElementById("customModal").style.display = "flex";
             } else {
-                // Agar sotib olgan bo'lsa ro'yxatning eng birinchi sotib olgan kitobiga olib boradi
-                const firstOwnedBook = booksData.find(b => userOwned.includes(b.code));
-                if(firstOwnedBook) scrollToSection(`card-${firstOwnedBook.id}`);
+                const firstOwnedIndex = booksData.findIndex(b => userOwned.includes(b.code));
+                if (firstOwnedIndex !== -1) jumpToBookIndex(firstOwnedIndex);
             }
         }
 
-        // Huquqlar va tugmalarning ishlash holati
+        // Tugmalarni jonlantirish va tilga moslash
         function checkBookAccess() {
             booksData.forEach(book => {
                 const btn = document.getElementById(`btn-read-${book.id}`);
                 const priceLabel = document.getElementById(`p-price-${book.id}`);
                 const titleLabel = document.getElementById(`t-book-${book.id}`);
                 
-                if (titleLabel) {
-                    titleLabel.innerText = currentLang === 'uz' ? book.nameUz : book.nameEn;
-                }
-                if (priceLabel) {
-                    priceLabel.innerText = currentLang === 'uz' ? "💰 25,000 so'm" : "💰 25,000 UZS";
-                }
+                if (titleLabel) titleLabel.innerText = currentLang === 'uz' ? book.nameUz : book.nameEn;
+                if (priceLabel) priceLabel.innerText = currentLang === 'uz' ? "💰 25,000 so'm" : "💰 25,000 UZS";
                 if (!btn) return;
 
                 if (premiumUsers[userId] && premiumUsers[userId].includes(book.code)) {
@@ -449,7 +471,7 @@
             });
         }
 
-        // Modallarni ochish/yopish
+        // Modallar ochilishi
         function openBookModal(name, link) {
             document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Sotib olish" : "Purchase";
             document.getElementById("modalDesc").innerText = currentLang === 'uz' ? 
@@ -479,30 +501,28 @@
             if (type === 'guide') {
                 title.innerText = currentLang === 'uz' ? "Qo'llanma" : "Guide";
                 desc.innerText = currentLang === 'uz' ? 
-                    "1. Menyu orqali kerakli bo'limga tezkor sakrang.\n2. 'Sotib olish' tugmasi orqali darslikni faollashtiring.\n3. Har bir darslik interaktiv test va audiolardan iborat." :
-                    "1. Use menu to scroll into sections immediately.\n2. Tap 'Buy' button to activate the textbook.\n3. Every course includes smart tests and audios.";
+                    "1. Yon menyu orqali kerakli bo'lim darsliklariga tezkor sakrang.\n2. Kitoblarni yonboshga surish orqali < va > tugmalaridan foydalaning.\n3. Har bir darslik maxsus audio va testlar bilan ta'minlangan." :
+                    "1. Use sidebar menu to slide directly into specific books.\n2. Swipe or click < and > arrows to browse courses.\n3. Every single textbook includes dynamic audios and practices.";
             } else {
                 title.innerText = currentLang === 'uz' ? "Biz haqimizda" : "About Us";
                 desc.innerText = currentLang === 'uz' ? 
-                    "My Vocabularies — ingliz tili lug'at boyligi va darsliklarini mukammal o'rganish uchun yaratilgan eng zamonaviy platformadir." :
-                    "My Vocabularies — is a modern interactive platform built specifically for learning core English textbooks seamlessly.";
+                    "My Vocabularies — ingliz tili lug'at boyligi va darsliklarini yonma-yon formatda oson o'rganish imkonini beruvchi mukammal WebApp tizimidir." :
+                    "My Vocabularies — is a highly optimized interactive WebApp mini-platform providing swift horizontal learning for core English books.";
             }
             document.getElementById("customModal").style.display = "flex";
         }
 
         function closeModal() { document.getElementById("customModal").style.display = "none"; }
 
-        // Til o'zgartirish funksiyasi
+        // Tarjima lug'ati
         const translations = {
             uz: {
                 "m-menu-title": "Menyu", "m-cate-title": "Kategoriyalar", "m-obuna-title": "Obunalar", "m-guide": "Qo'llanma", "m-about": "Biz haqimizda",
-                "sec-essential": "— ESSENTIAL WORDS (1-6) —", "sec-solution": "— SOLUTION BOOKS —", "sec-read": "— READ AND UNDERSTAND (1-4) —", "sec-ielts": "— IELTS VOCABULARIES —",
-                "pay-title": "— TO'LOV TIZIMLARI —", "footer-text": "© 2026 My Vocabularies. Barcha huquqlar himoyalangan."
+                "sec-title": "— KITOBLAR RO'YXATI —", "pay-title": "— TO'LOV TIZIMLARI —", "footer-text": "© 2026 My Vocabularies. Barcha huquqlar himoyalangan."
             },
             en: {
                 "m-menu-title": "Menu", "m-cate-title": "Categories", "m-obuna-title": "Subscriptions", "m-guide": "User Guide", "m-about": "About Us",
-                "sec-essential": "— ESSENTIAL WORDS (1-6) —", "sec-solution": "— SOLUTION BOOKS —", "sec-read": "— READ AND UNDERSTAND (1-4) —", "sec-ielts": "— IELTS VOCABULARIES —",
-                "pay-title": "— PAYMENT SYSTEMS —", "footer-text": "© 2026 My Vocabularies. All rights reserved."
+                "sec-title": "— BOOKS LIST —", "pay-title": "— PAYMENT SYSTEMS —", "footer-text": "© 2026 My Vocabularies. All rights reserved."
             }
         };
 
@@ -516,7 +536,7 @@
             checkBookAccess();
         }
 
-        // Banner avtomat aylanishi
+        // Yuqori banner avtomat aylanishi
         let currentSlide = 0;
         setInterval(() => {
             currentSlide = (currentSlide + 1) % 3;
