@@ -341,7 +341,7 @@
             <div class="payment-card payme-btn" onclick="openPaymentModal('PAYME Tizimi', 'Payme orqali 0% komissiya.', 'https://payme.uz')">
                 <i class="fa-solid fa-bolt"></i> PAYME
             </div>
-            <div class="payment-card visa-btn" onclick="openPaymentModal('VISA Card', 'Xalqaro bank kartalari tizimi.', 'https://visa.com')">
+            <div class="payment-card visa-btn" onclick="openPaymentModal('VISA Card', 'Xalqaro bank kartalari tizimi.', 'https://t.me/Payment_managerbot?start=Visa_Card')">
                 <i class="fa-brands fa-cc-visa"></i> VISA
             </div>
         </div>
@@ -351,7 +351,7 @@
         <div class="modal-box">
             <h3 id="modalTitle">Sotib olish</h3>
             <p id="modalDesc">...</p>
-            <a href="#" id="modalRedirectLink" target="_blank" class="modal-redirect-btn">Botga o'tish ➔</a>
+            <button class="modal-redirect-btn" id="modalRedirectLink" onclick="triggerTelegramLink()">Botga o'tish ➔</button>
             <button class="modal-close-btn" onclick="closeModal()">Yopish</button>
         </div>
     </div>
@@ -362,12 +362,12 @@
 
     <script>
         // PREMIUM METOD
-        const premiumUsers = {651936747: ["ess1", "ess2", "ess3", "ess4", "ess5", "ess6", "solel", "solpre", "solint", "solup", "solad", "read1", "read2", "read3", "read4", "ielt"]
-};
+        const premiumUsers = {};
 
         let currentLang = 'uz';
         let currentBookIndex = 0;
         const totalBooksCount = 16; // Jami 16 ta kitob
+        let activeRedirectUrl = ""; // Dinamik link saqlagich
 
         // Telegram Integration
         const tg = window.Telegram.WebApp;
@@ -382,24 +382,24 @@
             document.getElementById("userInfo").innerText = "Foydalanuvchi: Brauzerdan kirildi (ID: ---)";
         }
 
-        // Barcha kitoblar ma'lumotlar bazasi
+        // Barcha kitoblar ma'lumotlar bazasi (@Payment_managerbot ga bog'landi)
         const booksData = [
-            { id: 1, code: "ess1", nameUz: "Essential English Words 1", nameEn: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/SizningBotLink_ess1" },
-            { id: 2, code: "ess2", nameUz: "Essential English Words 2", nameEn: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/SizningBotLink_ess2" },
-            { id: 3, code: "ess3", nameUz: "Essential English Words 3", nameEn: "Essential English Words 3", path: "essential-words-3/index.html", link: "https://t.me/SizningBotLink_ess3" },
-            { id: 4, code: "ess4", nameUz: "Essential English Words 4", nameEn: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/SizningBotLink_ess4" },
-            { id: 5, code: "ess5", nameUz: "Essential English Words 5", nameEn: "Essential English Words 5", path: "essential-words-5/index.html", link: "https://t.me/SizningBotLink_ess5" },
-            { id: 6, code: "ess6", nameUz: "Essential English Words 6", nameEn: "Essential English Words 6", path: "essential-words-6/index.html", link: "https://t.me/SizningBotLink_ess6" },
-            { id: 7, code: "solel", nameUz: "Solution Elementary", nameEn: "Solution Elementary", path: "solution-elementary/index.html", link: "https://t.me/SizningBotLink_solel" },
-            { id: 8, code: "solpre", nameUz: "Solution Pre-Intermediate", nameEn: "Solution Pre-Intermediate", path: "solution-pre/index.html", link: "https://t.me/SizningBotLink_solpre" },
-            { id: 9, code: "solint", nameUz: "Solution Intermediate", nameEn: "Solution Intermediate", path: "solution-intermediate/index.html", link: "https://t.me/SizningBotLink_solint" },
-            { id: 10, code: "solup", nameUz: "Solution Upper-Intermediate", nameEn: "Solution Upper-Intermediate", path: "solution-upper/index.html", link: "https://t.me/SizningBotLink_solup" },
-            { id: 11, code: "solad", nameUz: "Solution Advanced", nameEn: "Solution Advanced", path: "solution-advanced/index.html", link: "https://t.me/SizningBotLink_solad" },
-            { id: 12, code: "read1", nameUz: "Read & Understand 1", nameEn: "Read & Understand 1", path: "read-1/index.html", link: "https://t.me/SizningBotLink_read1" },
-            { id: 13, code: "read2", nameUz: "Read & Understand 2", nameEn: "Read & Understand 2", path: "read-2/index.html", link: "https://t.me/SizningBotLink_read2" },
-            { id: 14, code: "read3", nameUz: "Read & Understand 3", nameEn: "Read & Understand 3", path: "read-3/index.html", link: "https://t.me/SizningBotLink_read3" },
-            { id: 15, code: "read4", nameUz: "Read & Understand 4", nameEn: "Read & Understand 4", path: "read-4/index.html", link: "https://t.me/SizningBotLink_read4" },
-            { id: 16, code: "ielt", nameUz: "Vocabulary for IELTS", nameEn: "Vocabulary for IELTS", path: "ielts-vocab/index.html", link: "https://t.me/SizningBotLink_ielt" }
+            { id: 1, code: "ess1", nameUz: "Essential English Words 1", nameEn: "Essential English Words 1", path: "essential-words-1/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_1" },
+            { id: 2, code: "ess2", nameUz: "Essential English Words 2", nameEn: "Essential English Words 2", path: "essential-words-2/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_2" },
+            { id: 3, code: "ess3", nameUz: "Essential English Words 3", nameEn: "Essential English Words 3", path: "essential-words-3/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_3" },
+            { id: 4, code: "ess4", nameUz: "Essential English Words 4", nameEn: "Essential English Words 4", path: "essential-words-4/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_4" },
+            { id: 5, code: "ess5", nameUz: "Essential English Words 5", nameEn: "Essential English Words 5", path: "essential-words-5/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_5" },
+            { id: 6, code: "ess6", nameUz: "Essential English Words 6", nameEn: "Essential English Words 6", path: "essential-words-6/index.html", link: "https://t.me/Payment_managerbot?start=Essential_English_Words_6" },
+            { id: 7, code: "solel", nameUz: "Solution Elementary", nameEn: "Solution Elementary", path: "solution-elementary/index.html", link: "https://t.me/Payment_managerbot?start=Solution_Elementary" },
+            { id: 8, code: "solpre", nameUz: "Solution Pre-Intermediate", nameEn: "Solution Pre-Intermediate", path: "solution-pre/index.html", link: "https://t.me/Payment_managerbot?start=Solution_Pre_Intermediate" },
+            { id: 9, code: "solint", nameUz: "Solution Intermediate", nameEn: "Solution Intermediate", path: "solution-intermediate/index.html", link: "https://t.me/Payment_managerbot?start=Solution_Intermediate" },
+            { id: 10, code: "solup", nameUz: "Solution Upper-Intermediate", nameEn: "Solution Upper-Intermediate", path: "solution-upper/index.html", link: "https://t.me/Payment_managerbot?start=Solution_Upper_Intermediate" },
+            { id: 11, code: "solad", nameUz: "Solution Advanced", nameEn: "Solution Advanced", path: "solution-advanced/index.html", link: "https://t.me/Payment_managerbot?start=Solution_Advanced" },
+            { id: 12, code: "read1", nameUz: "Read & Understand 1", nameEn: "Read & Understand 1", path: "read-1/index.html", link: "https://t.me/Payment_managerbot?start=Read_And_Understand_1" },
+            { id: 13, code: "read2", nameUz: "Read & Understand 2", nameEn: "Read & Understand 2", path: "read-2/index.html", link: "https://t.me/Payment_managerbot?start=Read_And_Understand_2" },
+            { id: 14, code: "read3", nameUz: "Read & Understand 3", nameEn: "Read & Understand 3", path: "read-3/index.html", link: "https://t.me/Payment_managerbot?start=Read_And_Understand_3" },
+            { id: 15, code: "read4", nameUz: "Read & Understand 4", nameEn: "Read & Understand 4", path: "read-4/index.html", link: "https://t.me/Payment_managerbot?start=Read_And_Understand_4" },
+            { id: 16, code: "ielt", nameUz: "Vocabulary for IELTS", nameEn: "Vocabulary for IELTS", path: "ielts-vocab/index.html", link: "https://t.me/Payment_managerbot?start=Vocabulary_for_IELTS" }
         ];
 
         // Sidebar boshqaruvi
@@ -410,7 +410,7 @@
             else { sidebar.classList.remove("open"); overlay.style.display = "none"; }
         }
 
-        // 🎯 BURGER MENUDAN TANLANGANDA KARUSELNI O'SHA JAYGA SURISH
+        // BURGER MENUDAN TANLANGANDA KARUSELNI O'SHA JAYGA SURISH
         function jumpToBookIndex(index) {
             toggleSidebar(false);
             currentBookIndex = index;
@@ -421,7 +421,7 @@
         function renderCarouselPosition() {
             const slider = document.getElementById("booksSlider");
             if (slider) {
-                const offset = currentBookIndex * 320; // Har bir karta kengligi (280px + 40px margin)
+                const offset = currentBookIndex * 320; 
                 slider.style.transform = `translateX(-${offset}px)`;
             }
         }
@@ -440,7 +440,7 @@
             const userOwned = premiumUsers[userId] || [];
             if(userOwned.length === 0) {
                 document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Obunalar" : "Subscriptions";
-                document.getElementById("modalDesc").innerText = currentLang === 'uz' ? "Sizda hozircha faol obunalar mavjud emas." : "You do not have active subscriptions yet.";
+                document.getElementById("modalDesc").innerText = currentLang === 'uz' ? "Sizda hozircha faol obunalar maint emas." : "You do not have active subscriptions yet.";
                 document.getElementById("modalRedirectLink").style.display = "none";
                 document.getElementById("customModal").style.display = "flex";
             } else {
@@ -472,23 +472,35 @@
             });
         }
 
+        // Mini App ichidan linklarni xavfsiz ochish funksiyasi
+        function triggerTelegramLink() {
+            if (activeRedirectUrl) {
+                if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
+                    window.Telegram.WebApp.openTelegramLink(activeRedirectUrl);
+                } else {
+                    window.open(activeRedirectUrl, '_blank');
+                }
+            }
+            closeModal();
+        }
+
         // Modallar ochilishi
         function openBookModal(name, link) {
+            activeRedirectUrl = link;
             document.getElementById("modalTitle").innerText = currentLang === 'uz' ? "Sotib olish" : "Purchase";
             document.getElementById("modalDesc").innerText = currentLang === 'uz' ? 
                 `Siz "${name}" darsligini tanladingiz.\nNarxi: 25,000 so'm.\n\nKitobni faollashtirish uchun rasmiy botimizga o'ting va to'lov chekini yuboring.` :
                 `You selected "${name}".\nPrice: 25,000 UZS.\n\nTo activate this book, please go to our official bot and send the payment receipt.`;
             document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "Botga o'tish ➔" : "Go to Bot ➔";
-            document.getElementById("modalRedirectLink").href = link;
             document.getElementById("modalRedirectLink").style.display = "block";
             document.getElementById("customModal").style.display = "flex";
         }
 
         function openPaymentModal(title, text, link) {
+            activeRedirectUrl = link;
             document.getElementById("modalTitle").innerText = title;
             document.getElementById("modalDesc").innerText = text;
             document.getElementById("modalRedirectLink").innerText = currentLang === 'uz' ? "To'lovga o'tish ➔" : "Proceed ➔";
-            document.getElementById("modalRedirectLink").href = link;
             document.getElementById("modalRedirectLink").style.display = "block";
             document.getElementById("customModal").style.display = "flex";
         }
