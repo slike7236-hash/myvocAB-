@@ -37,6 +37,8 @@ const premiumUsers = {
     "8194115305": ["eway1"],
 //Madina 28-noyabr ishlamasligi kerak
     "6453341550": ["eway1"],
+    //Mohinur 4-dekabr ishlamasligi kerak
+    "5429444937": ["eway1"],
     "7363384471": ["ess1", "ess2", "ess3", "ess4", "ess5", "ess6"]
     // Yangi sotib olgan xaridorlarni faqat shu yerga qo'shasiz!
 };
