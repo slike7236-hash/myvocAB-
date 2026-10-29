@@ -3952,5 +3952,5 @@ ru: {
     testUrl: "https://slike7236-hash.github.io/universal-quiz-server/?lesson=eway1_15",
     games: { matchup: "...", anagrama: "...", typeanswer: "...", wordsearch: "...", pair: "..." }
   },
-},
+}
 };
