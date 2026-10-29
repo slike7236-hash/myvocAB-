@@ -1,7 +1,7 @@
 // Barcha kitoblar va darslar ma'lumotlar bazasi
 const lessonsDatabase = {
     // 1-kitob, 1-dars
-    "ess1_1": {
+    ess1_1": {
         uz: {
             title: "The Lion and the Mouse",
            // audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
