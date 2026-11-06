@@ -7,6 +7,8 @@ const premiumUsers = {
     "679982753": ["ess1", "ess2", "ess3"],
      //Abubakir
     "8611827345": ["eway1"],
+    //Muhammadamin ibragimov
+    "6416252957": ["eway1"],
      //Rahimjon
     "800625935": ["eway1"],
      //Dinora
