@@ -45,6 +45,8 @@ const premiumUsers = {
     "632818631": ["eway1"],
     //Gulbahor Dekabr 9 oxirgi kun 10 ishgʻamaydi
     "841835044": ["eway1"],
+     //Sevinch dekabr 15 oxirgi kun 10 ishgʻamaydi
+    "6501157564": ["eway1"],
     "7363384471": ["ess1", "ess2", "ess3", "ess4", "ess5", "ess6"]
     // Yangi sotib olgan xaridorlarni faqat shu yerga qo'shasiz!
 };
