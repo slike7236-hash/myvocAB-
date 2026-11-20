@@ -21,8 +21,8 @@ const premiumUsers = {
     "87291716280": ["eway1"],
      //Amina
     "79502399710": ["eway1"],
-     //Sardor
-    "5016218420": ["eway1"],
+     //Sardor 25 dekabr
+    "8999264909": ["eway1"],
      //Yasmina
     "85059130270": ["eway1"],
      //Muhammadamin
