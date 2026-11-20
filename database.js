@@ -4093,4 +4093,24 @@ ru: {
     games: { matchup: "...", anagrama: "...", typeanswer: "...", wordsearch: "...", pair: "..." }
   },
 },
+"eway1_23": {
+  uz: {
+    title: "Foods",
+    gamesTitle: "GAMELAR RO'YXATI",
+    textHtml: "Today is our holiday, and my sister and I are at our grandfather's house in the village. The village is very beautiful. There is a very big garden at our grandfather's house, and there are many fruits and vegetables in it. We are helping our grandfather today. Behind our grandfather's house, there is a red tomato, a fresh cucumber, a long orange carrot, and a big potato. But there are no onion and no green cabbage in this garden. Our bags are on the wooden bench near the tall tree. There is clean air everywhere around us, and there are small birds singing above the trees. We like this village very much!",
+    videoUrl: "https://www.youtube.com/embed/uVwTzOxdn_o",
+    keywordsList: [{ word: "food", translation: "oziq-ovqat" }, { word: "bread", translation: "non" }, { word: "rice", translation: "guruch" }, { word: "meat", translation: "go'sht" }, { word: "chicken", translation: "tovuq go'shti" }, { word: "egg", translation: "tuxum" }, { word: "cheese", translation: "pishloq" }, { word: "butter", translation: "sariyog'" }, { word: "milk", translation: "sut" }, { word: "soup", translation: "sho'rva" }, { word: "cake", translation: "tort" }, { word: "biscuit", translation: "pechenye" }, { word: "chocolate", translation: "shokolad" }, { word: "sugar", translation: "shakar" }, { word: "salt", translation: "tuz" }, { word: "pepper", translation: "murch" }, { word: "honey", translation: "asal" }],
+    testUrl: "https://slike7236-hash.github.io/universal-quiz-server/?lesson=eway1_23",
+    games: { matchup: "...", anagrama: "...", typeanswer: "...", wordsearch: "...", pair: "..." }
+  },
+  ru: {
+    title: "Foods",
+    gamesTitle: "СПИСОК ИГР",
+    textHtml: "Today is our holiday, and my sister and I are at our grandfather's house in the village. The village is very beautiful. There is a very big garden at our grandfather's house, and there are many fruits and vegetables in it. We are helping our grandfather today. Behind our grandfather's house, there is a red tomato, a fresh cucumber, a long orange carrot, and a big potato. But there are no onion and no green cabbage in this garden. Our bags are on the wooden bench near the tall tree. There is clean air everywhere around us, and there are small birds singing above the trees. We like this village very much!",
+    videoUrl: "https://www.youtube.com/embed/uVwTzOxdn_o",
+    keywordsList: [{ word: "food", translation: "еда / продукты питания" }, { word: "bread", translation: "хлеб" }, { word: "rice", translation: "рис" }, { word: "meat", translation: "мясо" }, { word: "chicken", translation: "курица / курятина" }, { word: "egg", translation: "яйцо" }, { word: "cheese", translation: "сыр" }, { word: "butter", translation: "сливочное масло" }, { word: "milk", translation: "молоко" }, { word: "soup", translation: "суп" }, { word: "cake", translation: "торт / пирожное" }, { word: "biscuit", translation: "печенье" }, { word: "chocolate", translation: "шоколад" }, { word: "sugar", translation: "сахар" }, { word: "salt", translation: "соль" }, { word: "pepper", translation: "перец" }, { word: "honey", translation: "мёд" }],
+    testUrl: "https://slike7236-hash.github.io/universal-quiz-server/?lesson=eway1_23",
+    games: { matchup: "...", anagrama: "...", typeanswer: "...", wordsearch: "...", pair: "..." }
+  },
+},
 };
