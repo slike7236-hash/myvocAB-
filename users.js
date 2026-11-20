@@ -6,33 +6,33 @@ const premiumUsers = {
     //Mijoz 05.10-10.01
     "679982753": ["ess1", "ess2", "ess3"],
      //Abubakir
-    "8611827345": ["eway1"],
+    "86118273450": ["eway1"],
     //Muhammadamin ibragimov
-    "6416252957": ["eway1"],
+    "64162529570": ["eway1"],
      //Rahimjon
-    "800625935": ["eway1"],
+    "8006259350": ["eway1"],
      //Dinora
-    "6955483365": ["eway1"],
+    "69554833650": ["eway1"],
      //Shaxnoza
-    "5310402278": ["eway1"],
+    "53104022780": ["eway1"],
      //Shaxrizoda
-    "761219435": ["eway1"],
+    "7612194350": ["eway1"],
      //Orasta
-    "8729171628": ["eway1"],
+    "87291716280": ["eway1"],
      //Amina
-    "7950239971": ["eway1"],
+    "79502399710": ["eway1"],
      //Sardor
-    "501621842": ["eway1"],
+    "5016218420": ["eway1"],
      //Yasmina
-    "8505913027": ["eway1"],
+    "85059130270": ["eway1"],
      //Muhammadamin
-    "8205119508": ["eway1"],
+    "82051195080": ["eway1"],
      //Iymona
-    "8811543903": ["eway1"],
+    "88115439030": ["eway1"],
      //Aziza
-    "6343119120": ["eway1"],
+    "63431191200": ["eway1"],
     //Maftuna
-    "7542713313": ["eway1"],
+    "75427133130": ["eway1"],
     //Shahram 23-noyabr ishlamasligi kerak
     "7499499363": ["eway1"],
     //Feruza 25-noyabr ishlamasligi kerak
