@@ -6,7 +6,7 @@ const premiumUsers = {
     //Mijoz 05.10-10.01
     "679982753": ["ess1", "ess2", "ess3"],
      //Abubakir
-    "86118273450": ["eway1"],
+    "8611827345": ["eway1"],
     //Muhammadamin ibragimov
     "64162529570": ["eway1"],
      //Rahimjon
