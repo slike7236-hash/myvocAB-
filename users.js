@@ -26,7 +26,7 @@ const premiumUsers = {
      //Yasmina
     "85059130270": ["eway1"],
      //Muhammadamin
-    "82051195080": ["eway1"],
+    "8205119508": ["eway1"],
      //Iymona
     "88115439030": ["eway1"],
      //Aziza
