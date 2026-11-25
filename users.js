@@ -32,7 +32,7 @@ const premiumUsers = {
      //Aziza
     "63431191200": ["eway1"],
     //Maftuna
-    "75427133130": ["eway1"],
+    "7542713313": ["eway1"],
     //Shahram 23-noyabr ishlamasligi kerak
     "7499499363": ["eway1"],
     //Feruza 25-noyabr ishlamasligi kerak
